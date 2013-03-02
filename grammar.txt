@@ -1,10 +1,28 @@
 Differentiator expression grammar
 =================================
 
+<expression> ::= "(" [<variable] | <expression>] <space> (<binary-operator> <space> [<variable> | <expression>])* ")"
+<space> ::= " "+
+<variable> ::= <identifier> | <number>
+<identifier> ::= <letter>+
+<letter> ::= <lowercase-letter> | <uppercase-letter>
+<lowercase-letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+<uppercase-letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+<number> ::= -?<digit>+
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<binary-operator> ::= "+" | "*" | "/" | "-" | "^"
 
-EXPRESSION ::= [ fill me in ]
-... more productions here ...
-
-
-You should ultimately be able to write a production for just one
-variable that represents any expression in the language.
+<expression> ::= <left-paren> <space>? [<variable] | <expression>] <space> (<binary-operator> <space> [<variable> | <expression>])* <right-paren>
+<left-paren> ::= "("
+<right-paren> ::= ")"
+<space> ::= " "+
+<variable> ::= <identifier> | <constant>
+<identifier> ::= <letter>+
+<letter> ::= <lowercase-letter> | <uppercase-letter>
+<lowercase-letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+<uppercase-letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+<constant> ::= <integer> | <float>
+<integer> ::= "-"?<digit>+
+<float> ::= <integer>?.<digit>*
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<binary-operator> ::= "+" | "*" | "/" | "-" | "^"
