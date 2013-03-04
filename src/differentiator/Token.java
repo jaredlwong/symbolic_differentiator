@@ -20,6 +20,9 @@ public class Token {
         MINUS("-"), STAR("*"), SLASH("/"),
         CARET("^"),
 
+        // terminal to represent start and end parens
+        TERMINAL("$"),
+
         // non-operators
         INTEGER("Z"),
         REAL("R"),
@@ -49,20 +52,30 @@ public class Token {
     private static final Map<Type, Token> OPMAP =
             new EnumMap<Type, Token>(Type.class);
 
+    /** Intended to hold the characters of the operators, this excludes our
+     * special starting and ending parens.
+     */
     private static final Set<Character> OPCHARSET =
             new HashSet<Character>();
 
+    private static final Token terminal = new Token(Type.TERMINAL);
     static {
+        // We lazily add all Tokens into our operator map and then remove
+        // all tokens which are not operators.
         for (Type type : Type.values()) {
             OPMAP.put(type, new Token(type));
         }
         OPMAP.remove(Type.INTEGER);
         OPMAP.remove(Type.REAL);
         OPMAP.remove(Type.IDENTIFIER);
-        
+        OPMAP.remove(Type.TERMINAL);
+
         for (Type type : OPMAP.keySet()) {
             OPCHARSET.add(new Character(type.rep.charAt(0)));
         }
+
+        // We also want to keep a singleton TERMINAL
+        terminal.value = Type.TERMINAL.rep;
     }
 
     /** The type of the Token */
@@ -106,8 +119,8 @@ public class Token {
         }
     }
 
-    /**
-     * Get instance of Token class, if valid token.
+    /** Get instance of Token class, if valid token. This will not return a
+     * starting terminal paren or closing terminal paren.
      * @param token The token that needs to be represented
      * @return An instance of Token that represents token
      */
@@ -115,12 +128,14 @@ public class Token {
         Type type = getType(token);
         if (OPMAP.containsKey(type)) {
             return OPMAP.get(type);
+        } else if (type == Type.TERMINAL) {
+            return terminal;
         }
         return new Token(type, token);
     }
 
-    /**
-     * Get Type of a token
+    /** Get Type of a token. This will not return a starting or closing
+     * terminal paren. This is for private use only.
      * @param token The token that is being parsed
      * @return The Type of the token, an InvalidTokenException is thrown if
      *          token not recognized.
@@ -129,6 +144,7 @@ public class Token {
         for (Type type : OPMAP.keySet()) {
             if (token.equals(type.rep)) return type;
         }
+        if (token.matches("\\$")) return Type.TERMINAL;
         if (token.matches("-?[0-9]+")) return Type.INTEGER;
         if (token.matches("-?[0-9]*\\.[0-9]+|-?[0-9]+\\.[0-9]*"))
             return Type.REAL;
@@ -167,6 +183,8 @@ public class Token {
     public String toString() {
         if (OPMAP.containsKey(type)) {
             return type.rep;
+        } else if (this.type == Type.TERMINAL) {
+            return Type.TERMINAL.rep;
         }
         return this.value.toString();
     }
