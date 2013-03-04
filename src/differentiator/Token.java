@@ -3,7 +3,9 @@ package differentiator;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A token is a lexical item that the parser uses.
@@ -46,6 +48,10 @@ public class Token {
      */
     private static final Map<Type, Token> OPMAP =
             new EnumMap<Type, Token>(Type.class);
+
+    private static final Set<Character> OPCHARSET =
+            new HashSet<Character>();
+
     static {
         for (Type type : Type.values()) {
             OPMAP.put(type, new Token(type));
@@ -53,6 +59,10 @@ public class Token {
         OPMAP.remove(Type.INTEGER);
         OPMAP.remove(Type.REAL);
         OPMAP.remove(Type.IDENTIFIER);
+        
+        for (Type type : OPMAP.keySet()) {
+            OPCHARSET.add(new Character(type.rep.charAt(0)));
+        }
     }
 
     /** The type of the Token */
@@ -120,7 +130,8 @@ public class Token {
             if (token.equals(type.rep)) return type;
         }
         if (token.matches("-?[0-9]+")) return Type.INTEGER;
-        if (token.matches("-?[0-9]*\\.[0-9]+|-?[0-9]+\\.[0-9]*")) return Type.REAL;
+        if (token.matches("-?[0-9]*\\.[0-9]+|-?[0-9]+\\.[0-9]*"))
+            return Type.REAL;
         if (token.matches("[a-zA-Z]+")) return Type.IDENTIFIER;
         throw new InvalidTokenException("Invalid Token: " + token);
     }
@@ -134,6 +145,10 @@ public class Token {
 
     public boolean isOperator() {
         return OPMAP.containsKey(type);
+    }
+
+    public static boolean isOperator(char c) {
+        return OPCHARSET.contains(c);
     }
 
     /**
@@ -151,7 +166,7 @@ public class Token {
     @Override
     public String toString() {
         if (OPMAP.containsKey(type)) {
-            return OPMAP.get(type).toString();
+            return type.rep;
         }
         return this.value.toString();
     }
