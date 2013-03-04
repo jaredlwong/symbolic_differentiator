@@ -11,39 +11,6 @@ import java.util.Set;
  * A token is a lexical item that the parser uses.
  */
 public class Token {
-    /**
-     * All the types of tokens that can be made.
-     */
-    public static enum Type {
-        // operators
-        LPAR("("), RPAR(")"), PLUS("+"),
-        MINUS("-"), STAR("*"), SLASH("/"),
-        CARET("^"),
-
-        // terminal to represent start and end parens
-        TERMINAL("$"),
-
-        // non-operators
-        INTEGER("Z"),
-        REAL("R"),
-        IDENTIFIER("X");
-
-        /**
-         * rep is the String representation of the Type.
-         * Stored as String in anticipation of multi-character type
-         * representations.
-         */
-        private final String rep;
-
-        private Type(String rep) {
-            this.rep = rep;
-        }
-
-        @Override
-        public String toString() {
-            return rep;
-        }
-    }
 
     /** 
      * The map of operator Types to Tokens. Note that all operator Tokens are
@@ -58,24 +25,19 @@ public class Token {
     private static final Set<Character> OPCHARSET =
             new HashSet<Character>();
 
-    private static final Token terminal = new Token(Type.TERMINAL);
     static {
-        // We lazily add all Tokens into our operator map and then remove
-        // all tokens which are not operators.
-        for (Type type : Type.values()) {
-            OPMAP.put(type, new Token(type));
-        }
-        OPMAP.remove(Type.INTEGER);
-        OPMAP.remove(Type.REAL);
-        OPMAP.remove(Type.IDENTIFIER);
-        OPMAP.remove(Type.TERMINAL);
+        OPMAP.put(Type.PLUS, new Token(Type.PLUS));
+        OPMAP.put(Type.MINUS, new Token(Type.MINUS));
+        OPMAP.put(Type.STAR, new Token(Type.STAR));
+        OPMAP.put(Type.SLASH, new Token(Type.SLASH));
+        OPMAP.put(Type.CARET, new Token(Type.CARET));
+        OPMAP.put(Type.LPAR, new Token(Type.LPAR));
+        OPMAP.put(Type.RPAR, new Token(Type.RPAR));
+        OPMAP.put(Type.TERMINAL, new Token(Type.TERMINAL));
 
         for (Type type : OPMAP.keySet()) {
-            OPCHARSET.add(new Character(type.rep.charAt(0)));
+            OPCHARSET.add(new Character(type.toString().charAt(0)));
         }
-
-        // We also want to keep a singleton TERMINAL
-        terminal.value = Type.TERMINAL.rep;
     }
 
     /** The type of the Token */
@@ -128,8 +90,6 @@ public class Token {
         Type type = getType(token);
         if (OPMAP.containsKey(type)) {
             return OPMAP.get(type);
-        } else if (type == Type.TERMINAL) {
-            return terminal;
         }
         return new Token(type, token);
     }
@@ -142,7 +102,7 @@ public class Token {
      */
     private static Type getType(String token) {
         for (Type type : OPMAP.keySet()) {
-            if (token.equals(type.rep)) return type;
+            if (token.equals(type.toString())) return type;
         }
         if (token.matches("\\$")) return Type.TERMINAL;
         if (token.matches("-?[0-9]+")) return Type.INTEGER;
@@ -182,9 +142,9 @@ public class Token {
     @Override
     public String toString() {
         if (OPMAP.containsKey(type)) {
-            return type.rep;
+            return type.toString();
         } else if (this.type == Type.TERMINAL) {
-            return Type.TERMINAL.rep;
+            return Type.TERMINAL.toString();
         }
         return this.value.toString();
     }

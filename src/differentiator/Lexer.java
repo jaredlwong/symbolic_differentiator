@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import differentiator.Token.Type;
-
 /**
  * A lexer takes a string and splits it into tokens that are meaningful to a
  * parser.
@@ -17,6 +15,7 @@ public enum Lexer implements Iterable<Token> {
     /** Save away the Tokenizer in a convenient class variable */
     private final static Tokenizer tokenizer = Tokenizer.INSTANCE;
 
+    /** Saves away the current list of tokens generated from the input. */
     private List<Token> tokens;
 
     /** Generate the tokens given a new input string.
@@ -34,13 +33,17 @@ public enum Lexer implements Iterable<Token> {
         return tokens.toArray(new Token[tokens.size()]);
     }
 
+    /** This private helper method takes the tokenizer and transforms each
+     * token into appropriate tokens. This includes transformations of TERMINAL
+     * tokens and handling of Unary Minus.
+     * @return A list of Tokens representing the input
+     */
     private List<Token> getTokensFromTokenizer() {
         List<Token> parsedTokens = new LinkedList<Token>();
         tokenizer.reset();
         Token lastToken = null;
         Token token = null;
-        // Here we change our starting parenthesis to a special terminal Token
-        // and our end parenthesis to a special terminal Token.
+        // Do the transformations of Terminals and Unary Minus.
         while (true) {
             String strTok = tokenizer.next();
             token = Token.getInstance(strTok);
@@ -51,8 +54,18 @@ public enum Lexer implements Iterable<Token> {
                     throw new IllegalArgumentException(
                             "Input did not start with a left parenthesis.");
                 }
-                lastToken = token;
+            } else {
+                // If the last token was an operator or terminal (ie it wasn't
+                // a variable, and the current token is a minus assume it's
+                // a unary minus and do the transformation "-" -> "-1 *"
+                if (token.getType() == Type.MINUS &&
+                        (lastToken.isOperator() ||
+                        lastToken.getType() == Type.TERMINAL)) {
+                    parsedTokens.add(Token.getInstance("-1"));
+                    token = Token.getInstance("*");
+                }
             }
+            lastToken = token;
 
             // If there are no more tokens ensure that there is a terminal
             // right parenthesis and change it into a TERMINAL token.

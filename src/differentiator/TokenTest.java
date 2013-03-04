@@ -9,34 +9,34 @@ public class TokenTest {
     @Test
     public void basicOperatorsTests() {
         Token lpar = Token.getInstance("(");
-        assertEquals(Token.Type.LPAR, lpar.getType());
+        assertEquals(Type.LPAR, lpar.getType());
 
         Token rpar = Token.getInstance(")");
-        assertEquals(Token.Type.RPAR, rpar.getType());
+        assertEquals(Type.RPAR, rpar.getType());
 
         Token star = Token.getInstance("*");
-        assertEquals(Token.Type.STAR, star.getType());
+        assertEquals(Type.STAR, star.getType());
     }
 
     @Test
     public void basicIdentifierTests() {
         Token lower1 = Token.getInstance("a");
-        assertEquals(Token.Type.IDENTIFIER, lower1.getType());
+        assertEquals(Type.IDENTIFIER, lower1.getType());
 
         Token lower2 = Token.getInstance("z");
-        assertEquals(Token.Type.IDENTIFIER, lower2.getType());
+        assertEquals(Type.IDENTIFIER, lower2.getType());
 
         Token upper1 = Token.getInstance("A");
-        assertEquals(Token.Type.IDENTIFIER, upper1.getType());
+        assertEquals(Type.IDENTIFIER, upper1.getType());
 
         Token upper2 = Token.getInstance("Z");
-        assertEquals(Token.Type.IDENTIFIER, upper2.getType());
+        assertEquals(Type.IDENTIFIER, upper2.getType());
 
         Token lowermulti = Token.getInstance("aazz");
-        assertEquals(Token.Type.IDENTIFIER, lowermulti.getType());
+        assertEquals(Type.IDENTIFIER, lowermulti.getType());
 
         Token uppermulti = Token.getInstance("AAZZ");
-        assertEquals(Token.Type.IDENTIFIER, uppermulti.getType());
+        assertEquals(Type.IDENTIFIER, uppermulti.getType());
 
         char fullAlpha[] = new char[26*2];
         int i = 0;
@@ -45,40 +45,40 @@ public class TokenTest {
             fullAlpha[i*2+1] = Character.toUpperCase(c);
         }
         Token mixedcase = Token.getInstance(new String(fullAlpha));
-        assertEquals(Token.Type.IDENTIFIER, mixedcase.getType());
+        assertEquals(Type.IDENTIFIER, mixedcase.getType());
     }
 
     @Test
     public void basicIntegerTests() {
         Token simple = Token.getInstance("0123456789");
-        assertEquals(Token.Type.INTEGER, simple.getType());
+        assertEquals(Type.INTEGER, simple.getType());
 
         Token negsimple = Token.getInstance("-0123456789");
-        assertEquals(Token.Type.INTEGER, negsimple.getType());
+        assertEquals(Type.INTEGER, negsimple.getType());
 
         Token duplicate = Token.getInstance("-00112233445566778899");
-        assertEquals(Token.Type.INTEGER, duplicate.getType());
+        assertEquals(Type.INTEGER, duplicate.getType());
     }
 
     @Test
     public void basicRealTests() {
         Token simple1 = Token.getInstance("0123456789.");
-        assertEquals(Token.Type.REAL, simple1.getType());
+        assertEquals(Type.REAL, simple1.getType());
 
         Token simple2 = Token.getInstance(".0123456789");
-        assertEquals(Token.Type.REAL, simple2.getType());
+        assertEquals(Type.REAL, simple2.getType());
 
         Token simple3 = Token.getInstance("01234.56789");
-        assertEquals(Token.Type.REAL, simple3.getType());
+        assertEquals(Type.REAL, simple3.getType());
 
         Token negsimple1 = Token.getInstance("-.0123456789");
-        assertEquals(Token.Type.REAL, negsimple1.getType());
+        assertEquals(Type.REAL, negsimple1.getType());
 
         Token negsimple2 = Token.getInstance("-0123456789.");
-        assertEquals(Token.Type.REAL, negsimple2.getType());
+        assertEquals(Type.REAL, negsimple2.getType());
 
         Token negsimple3 = Token.getInstance("-012345.6789");
-        assertEquals(Token.Type.REAL, negsimple3.getType());
+        assertEquals(Type.REAL, negsimple3.getType());
     }
 
     @Test
