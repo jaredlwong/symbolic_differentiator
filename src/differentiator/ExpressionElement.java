@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class ExpressionElement implements
-        Comparable<ExpressionElement> {
+        Comparable<ExpressionElement>, Evaluatable<ExpressionElement> {
     private final Token token;
     private ExpressionElement left;
     private ExpressionElement right;
@@ -295,7 +295,10 @@ public class ExpressionElement implements
             str.append(this.right.printEvaluationString());
             str.append(")");
         }
-        
         return str.toString();
+    }
+
+    public void accept(EvaluatorVisitor<ExpressionElement> ev) {
+        ev.evaluate(this);
     }
 }
