@@ -20,16 +20,24 @@ public class Differentiator implements Evaluator {
      * @return The expression's derivative.
      */
     public String evaluate(String expression, String variable) {
-        return "";
-    }
-    
-    public static ExpressionElement differentiate(
-            ExpressionElement expression, Token variable) {
-        ExpressionElement result = recursiveDifferentiate(expression, variable);
-        return result;
+        Lexer lexer = Lexer.INSTANCE;
+        Parser parser = Parser.INSTANCE;
+
+        lexer.setInput(expression);
+        parser.setLexer(lexer);
+
+        ExpressionElement parseTree = parser.getParseTree();
+        ExpressionElement differentialParseTree =
+                Differentiator.differentiate(parseTree,
+                        Token.getInstance(variable));
+
+        differentialParseTree =
+                ExpressionElement.simplify(differentialParseTree);
+
+        return differentialParseTree.printEvaluationString();
     }
 
-    private static ExpressionElement recursiveDifferentiate(
+    public static ExpressionElement differentiate(
             ExpressionElement expression, Token variable) {
         ExpressionElement result;
         if (expression.isLeaf()) {
@@ -39,21 +47,25 @@ public class Differentiator implements Evaluator {
                 result = new ExpressionElement(zeroToken);
             }
         } else if (expression.getToken().equals(Token.getInstance("+"))) {
-            result =
-                    differentiate(expression.getLeft(), variable)
-                .add(
+            result = ExpressionElement.add(
+                    differentiate(expression.getLeft(), variable),
                     differentiate(expression.getRight(), variable));
         } else if (expression.getToken().equals(Token.getInstance("*"))) {
-            result =
-                        expression.getRight()
-                    .multiply(
-                        differentiate(expression.getLeft(), variable))
-                .add(
-                        expression.getLeft()
-                    .multiply(
-                        differentiate(expression.getRight(), variable)));
-        } else {
-            throw new IllegalArgumentException("Unsupported thing");
+            result = ExpressionElement.add(
+                        ExpressionElement.multiply(
+                            expression.getRight(),
+                            differentiate(expression.getLeft(), variable)),
+                        ExpressionElement.multiply(
+                            expression.getLeft(),
+                            differentiate(expression.getRight(), variable))
+                     );
+        } else if (expression.getToken().equals(Token.getInstance("-"))) {
+            result = ExpressionElement.subtract(
+                    differentiate(expression.getLeft(), variable),
+                    differentiate(expression.getRight(), variable));
+        }
+        else {
+            throw new IllegalArgumentException("Unsupported operation");
         }
         return result;
     }

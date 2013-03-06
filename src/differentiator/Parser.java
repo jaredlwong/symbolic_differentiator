@@ -121,7 +121,7 @@ public enum Parser {
     public static void main(String args[]) {
         Lexer lex = Lexer.INSTANCE;
 
-        String input = "( -1 - 10 / -foobar ^ 10)";
+        String input = "(x - 1)";
         lex.setInput(input);
 
         INSTANCE.setLexer(lex);

@@ -79,6 +79,17 @@ public class ExpressionElement implements
         return sum;
     }
 
+    public static ExpressionElement
+            subtract(ExpressionElement one, ExpressionElement two) {
+        ExpressionElement difference =
+                new ExpressionElement(Token.getInstance("+"));
+        difference.setLeftElement(one);
+        ExpressionElement product = multiply(
+                new ExpressionElement(Token.getInstance("-1")),two);
+        difference.setRightElement(product);
+        return difference;
+    }
+
     public static ExpressionElement multiply(ExpressionElement one, ExpressionElement two) {
         ExpressionElement product =
                 new ExpressionElement(Token.getInstance("*"));
@@ -99,7 +110,7 @@ public class ExpressionElement implements
         return result;
     }
 
-    public ExpressionElement add(ExpressionElement other) {
+    private ExpressionElement add(ExpressionElement other) {
         // If either node is 0, return the other
         if (this.token.getType() == Type.INTEGER) {
             if (((BigInteger) this.token.getValue())
@@ -156,7 +167,7 @@ public class ExpressionElement implements
         return newPlus;
     }
 
-    public ExpressionElement multiply(ExpressionElement other) {
+    private ExpressionElement multiply(ExpressionElement other) {
             // If either node is 0, return the zero
             if (this.token.getType() == Type.INTEGER) {
                 if (((BigInteger) this.token.getValue())

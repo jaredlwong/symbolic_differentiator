@@ -1,6 +1,6 @@
 package differentiator;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 public class DifferentiatorTest {
 
@@ -8,7 +8,7 @@ public class DifferentiatorTest {
         Lexer lexer = Lexer.INSTANCE;
         Parser parser = Parser.INSTANCE;
 
-        String input = "((y * 100 * 99.123123) * x)";
+        String input = "(x-1)";
         lexer.setInput(input);
 
         parser.setLexer(lexer);
