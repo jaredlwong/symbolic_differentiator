@@ -23,20 +23,20 @@ public class Differentiator implements Evaluator {
         return "";
     }
     
-    public static AbstractSyntaxElement differentiate(
-            AbstractSyntaxElement expression, Token variable) {
-        AbstractSyntaxElement result = recursiveDifferentiate(expression, variable);
+    public static ExpressionElement differentiate(
+            ExpressionElement expression, Token variable) {
+        ExpressionElement result = recursiveDifferentiate(expression, variable);
         return result;
     }
 
-    private static AbstractSyntaxElement recursiveDifferentiate(
-            AbstractSyntaxElement expression, Token variable) {
-        AbstractSyntaxElement result;
+    private static ExpressionElement recursiveDifferentiate(
+            ExpressionElement expression, Token variable) {
+        ExpressionElement result;
         if (expression.isLeaf()) {
             if (expression.getToken().equals(variable)) {
-                result = new AbstractSyntaxElement(oneToken);
+                result = new ExpressionElement(oneToken);
             } else {
-                result = new AbstractSyntaxElement(zeroToken);
+                result = new ExpressionElement(zeroToken);
             }
         } else if (expression.getToken().equals(Token.getInstance("+"))) {
             result =

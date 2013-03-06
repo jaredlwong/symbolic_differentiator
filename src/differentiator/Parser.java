@@ -16,19 +16,19 @@ public enum Parser {
         lexer = _lexer;
     }
 
-    public AbstractSyntaxElement getParseTree() {
+    public ExpressionElement getParseTree() {
         // Convert tokens to ase representation
         Token tokens[] = lexer.getTokens();
-        AbstractSyntaxElement elements[] =
-                new AbstractSyntaxElement[tokens.length];
+        ExpressionElement elements[] =
+                new ExpressionElement[tokens.length];
         for (int i = 0; i < tokens.length; ++i) {
-            elements[i] = new AbstractSyntaxElement(tokens[i]);
+            elements[i] = new ExpressionElement(tokens[i]);
         }
 
         ParserStack stack = ParserStack.INSTANCE;
         int elementIndex = 0;
         stack.push(elements[elementIndex++]);
-        AbstractSyntaxElement nextElement = elements[elementIndex];
+        ExpressionElement nextElement = elements[elementIndex];
         while (true) {
             // If our stack = [$,E*] or [$] and the next terminal in our
             // elements to process is $, then break. Our tokens must have
@@ -37,7 +37,7 @@ public enum Parser {
                     nextElement.getType() == Type.TERMINAL) {
                 break;
             } else {
-                AbstractSyntaxElement lastTerminalOnStack =
+                ExpressionElement lastTerminalOnStack =
                         stack.peekLastTerminal();
                 // Comparison of the top-most terminal in the stack to the
                 // next element (which must be a terminal) in our element
@@ -47,18 +47,18 @@ public enum Parser {
                     ++elementIndex;
                     nextElement = elements[elementIndex];
                 } else {
-                    List<AbstractSyntaxElement> newExpression =
-                        new ArrayList<AbstractSyntaxElement>(3);
-                    AbstractSyntaxElement lastTerminalSeen = nextElement;
+                    List<ExpressionElement> newExpression =
+                        new ArrayList<ExpressionElement>(3);
+                    ExpressionElement lastTerminalSeen = nextElement;
                     while (!stack.peek().isTerminal() ||
                             stack.peekLastTerminal().compareTo(lastTerminalSeen) >= 0) {
-                        AbstractSyntaxElement bb = stack.pop();
+                        ExpressionElement bb = stack.pop();
                         if (bb.isTerminal()) {
                             lastTerminalSeen = bb;
                         }
                         newExpression.add(bb);
                     }
-                    AbstractSyntaxElement newElement =
+                    ExpressionElement newElement =
                             processExpression(newExpression);
                     if (newElement != null) {
                         stack.push(newElement);
@@ -73,10 +73,10 @@ public enum Parser {
         return null;
     }
 
-    private static AbstractSyntaxElement
-            processExpression(List<AbstractSyntaxElement> expression) {
+    private static ExpressionElement
+            processExpression(List<ExpressionElement> expression) {
         if (expression.size() == 1) {
-            AbstractSyntaxElement onlyElem = expression.get(0);
+            ExpressionElement onlyElem = expression.get(0);
             if (!(onlyElem.getType().isVariable())) {
                 throw new IllegalArgumentException(
                         "Malformed input, operator may not precede or follow" +
@@ -93,9 +93,9 @@ public enum Parser {
         assert (expression.size() == 3);
 
         // items are entered in backwards
-        AbstractSyntaxElement left = expression.get(2);
-        AbstractSyntaxElement right = expression.get(0);
-        AbstractSyntaxElement center = expression.get(1);
+        ExpressionElement left = expression.get(2);
+        ExpressionElement right = expression.get(0);
+        ExpressionElement center = expression.get(1);
 
         // If it is (E) -> E
         if (left.getType() == Type.LPAR &&
@@ -121,11 +121,11 @@ public enum Parser {
     public static void main(String args[]) {
         Lexer lex = Lexer.INSTANCE;
 
-        String input = "(1 - 10 * foobar ^ 10)";
+        String input = "( -1 - 10 / -foobar ^ 10)";
         lex.setInput(input);
 
         INSTANCE.setLexer(lex);
-        AbstractSyntaxElement root = INSTANCE.getParseTree();
-        System.out.println(root.printTreePrefix());
+        ExpressionElement root = INSTANCE.getParseTree();
+        System.out.println(root.printEvaluationString());
     }
 }

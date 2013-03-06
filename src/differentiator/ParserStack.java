@@ -5,37 +5,37 @@ import java.util.Stack;
 public enum ParserStack {
     INSTANCE;
 
-    private static final Stack<AbstractSyntaxElement> stack =
-            new Stack<AbstractSyntaxElement>();
+    private static final Stack<ExpressionElement> stack =
+            new Stack<ExpressionElement>();
     
-    private static final Stack<AbstractSyntaxElement> terminalStack =
-            new Stack<AbstractSyntaxElement>();
+    private static final Stack<ExpressionElement> terminalStack =
+            new Stack<ExpressionElement>();
 
     public void reset() {
         stack.clear();
         terminalStack.clear();
     }
 
-    public void push(AbstractSyntaxElement e) {
+    public void push(ExpressionElement e) {
         if (e.isTerminal()) {
             terminalStack.push(e);
         }
         stack.push(e);
     }
 
-    public AbstractSyntaxElement pop() {
-        AbstractSyntaxElement next = stack.pop();
+    public ExpressionElement pop() {
+        ExpressionElement next = stack.pop();
         if (next.isTerminal()) {
             terminalStack.pop();
         }
         return next;
     }
 
-    public AbstractSyntaxElement peekLastTerminal() {
+    public ExpressionElement peekLastTerminal() {
         return terminalStack.peek();
     }
     
-    public AbstractSyntaxElement peek() {
+    public ExpressionElement peek() {
         return stack.peek();
     }
     

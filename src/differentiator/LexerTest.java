@@ -82,8 +82,8 @@ public class LexerTest {
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
         String expectedTokens[] = {
-                "$","-1","*","(","0","+","-1","*","0.0",
-                ")","*","-1","*","foobar","$"};
+                "$","-1","*","(","0","+","(","-1","*","0.0",")",
+                ")","*","(","-1","*","foobar",")","$"};
         for (String t : expectedTokens) {
            expected.add(Token.getInstance(t));
         }
@@ -101,8 +101,8 @@ public class LexerTest {
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
         String expectedTokens[] = {
-                "$","-1","*","(","0","+","-1","*","0.0",
-                ")","*","-1","*","foobar","$"};
+                "$","-1","*","(","0","+","(","-1","*","0.0",")",
+                ")","*","(","-1","*","foobar",")","$"};
         for (String t : expectedTokens) {
            expected.add(Token.getInstance(t));
         }
@@ -111,7 +111,7 @@ public class LexerTest {
             assertEquals(t, expIter.next());
         }
     }
-    
+
     @Test
     public void unaryMinus3Test() {
         Lexer lex = Lexer.INSTANCE;
@@ -120,8 +120,65 @@ public class LexerTest {
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
         String expectedTokens[] = {
-                "$","-1","*","(","0","+","-1","*","0.0",
-                ")","*","-1","*","foobar","$"};
+                "$","-1","*","(","0","+","(","-1","*","0.0",")",
+                ")","*","(","-1","*","foobar",")","$"};
+        for (String t : expectedTokens) {
+           expected.add(Token.getInstance(t));
+        }
+        Iterator<Token> expIter = expected.iterator();
+        for (Token t : lex) {
+            assertEquals(t, expIter.next());
+        }
+    }
+
+    @Test
+    public void unaryMinus4Test() {
+        Lexer lex = Lexer.INSTANCE;
+
+        String input = "(-foo^bar)";
+        lex.setInput(input);
+        List<Token> expected = new LinkedList<Token>();
+        String expectedTokens[] = {
+                "$","(","-1","*","foo",")","^","bar","$"};
+        for (String t : expectedTokens) {
+           expected.add(Token.getInstance(t));
+        }
+        Iterator<Token> expIter = expected.iterator();
+        for (Token t : lex) {
+            assertEquals(t, expIter.next());
+        }
+    }
+
+    @Test
+    public void unaryMinus5Test() {
+        Lexer lex = Lexer.INSTANCE;
+
+        String input = "( -1 - 10 * -foobar ^ 10)";
+        lex.setInput(input);
+        List<Token> expected = new LinkedList<Token>();
+        String expectedTokens[] = {
+                "$","(","-1","*","1",")","+","(","-1","*","10",")","*",
+                "(","-1","*","foobar",")","^","10","$"};
+        for (String t : expectedTokens) {
+           expected.add(Token.getInstance(t));
+        }
+        Iterator<Token> expIter = expected.iterator();
+        for (Token t : lex) {
+            assertEquals(t, expIter.next());
+        }
+    }
+
+    @Test
+    public void unaryMinus6Test() {
+        Lexer lex = Lexer.INSTANCE;
+
+        String input = "((x+y)^(-1)-b)";
+        lex.setInput(input);
+        List<Token> expected = new LinkedList<Token>();
+        String expectedTokens[] = {
+                "$","(","x","+","y",")","^",
+                "(","(","-1","*","1",")",")","+",
+                "(","-1","*","b",")","$"};
         for (String t : expectedTokens) {
            expected.add(Token.getInstance(t));
         }

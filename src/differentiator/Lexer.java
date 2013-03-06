@@ -65,8 +65,23 @@ public enum Lexer implements Iterable<Token> {
                 if (token.getType() == Type.MINUS &&
                         (lastToken.isOperator() ||
                         lastToken.getType() == Type.TERMINAL)) {
-                    parsedTokens.add(Token.getInstance("-1"));
-                    token = Token.getInstance("*");
+                    Token nextToken = Token.getInstance(tokenizer.next());
+                    // If the last token was not an operator, it must have been
+                    // a right paren
+                    if (lastToken.getType() == Type.RPAR) {
+                        parsedTokens.add(Token.getInstance("+"));
+                    }
+                    if (nextToken.getType().isVariable()) {
+                        parsedTokens.add(Token.getInstance("("));
+                        parsedTokens.add(Token.getInstance("-1"));
+                        parsedTokens.add(Token.getInstance("*"));
+                        parsedTokens.add(nextToken);
+                        token = Token.getInstance(")");
+                    } else {
+                        parsedTokens.add(Token.getInstance("-1"));
+                        parsedTokens.add(Token.getInstance("*"));
+                        token = nextToken;
+                    }
                 }
             }
             lastToken = token;

@@ -12,7 +12,7 @@ public enum Tokenizer implements Iterator<String> {
      * character should be, that is left to the Token class.
      */
     private static enum CharType {
-        IDENTIFIER("[a-zA-Z]"), NUMBER("-?[0-9\\.]"),
+        IDENTIFIER("[a-zA-Z]"), NUMBER("[0-9\\.]"),
         OP("[() +\\-*/^]");
 
         private final String regex;

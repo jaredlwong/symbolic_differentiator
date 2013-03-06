@@ -12,12 +12,12 @@ public class DifferentiatorTest {
         lexer.setInput(input);
 
         parser.setLexer(lexer);
-        AbstractSyntaxElement exp = parser.getParseTree();
+        ExpressionElement exp = parser.getParseTree();
         System.out.println(exp.printTreeInfix());
-        AbstractSyntaxElement diffExp =
+        ExpressionElement diffExp =
                 Differentiator.differentiate(exp, Token.getInstance("x"));
         System.out.println(diffExp.printEvaluationString());
-        diffExp = AbstractSyntaxElement.simplify(diffExp);
+        diffExp = ExpressionElement.simplify(diffExp);
         System.out.println(diffExp.printEvaluationString());
     }
 }
