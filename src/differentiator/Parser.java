@@ -16,7 +16,7 @@ public enum Parser {
         lexer = _lexer;
     }
 
-    private AbstractSyntaxElement getParseTree() {
+    public AbstractSyntaxElement getParseTree() {
         // Convert tokens to ase representation
         Token tokens[] = lexer.getTokens();
         AbstractSyntaxElement elements[] =
@@ -30,7 +30,6 @@ public enum Parser {
         stack.push(elements[elementIndex++]);
         AbstractSyntaxElement nextElement = elements[elementIndex];
         while (true) {
-            System.out.println("stack: " + stack);
             // If our stack = [$,E*] or [$] and the next terminal in our
             // elements to process is $, then break. Our tokens must have
             // start and end terminals.
@@ -44,7 +43,6 @@ public enum Parser {
                 // next element (which must be a terminal) in our element
                 // array.
                 if (lastTerminalOnStack.compareTo(nextElement) <= 0) {
-                    //System.out.println(nextElement.getToken());
                     stack.push(nextElement);
                     ++elementIndex;
                     nextElement = elements[elementIndex];
@@ -77,7 +75,6 @@ public enum Parser {
 
     private static AbstractSyntaxElement
             processExpression(List<AbstractSyntaxElement> expression) {
-        System.out.println("reducing: " + expression);
         if (expression.size() == 1) {
             AbstractSyntaxElement onlyElem = expression.get(0);
             if (!(onlyElem.getType().isVariable())) {
