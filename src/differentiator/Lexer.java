@@ -36,6 +36,10 @@ public enum Lexer implements Iterable<Token> {
     /** This private helper method takes the tokenizer and transforms each
      * token into appropriate tokens. This includes transformations of TERMINAL
      * tokens and handling of Unary Minus.
+     * 
+     * Unary minus gets expanded if it ever comes after an operator of terminal
+     * token. Even if it immediately precedes a number.
+     * 
      * @return A list of Tokens representing the input
      */
     private List<Token> getTokensFromTokenizer() {

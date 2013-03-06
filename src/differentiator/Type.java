@@ -22,10 +22,7 @@ public enum Type {
     // non-operators
     INTEGER("Z",    6, 5),
     REAL("R",       6, 5),
-    IDENTIFIER("X", 6, 5),
-
-    // Pseudo-type. Ie, not Token Type
-    EXPRESSION("E", 6, 5);
+    IDENTIFIER("X", 6, 5);
 
     /**
      * rep is the String representation of the Type.
@@ -33,9 +30,44 @@ public enum Type {
      * representations.
      */
     private final String rep;
+    
+    private final Integer leftPrecedence;
+    private final Integer rightPrecedence;
 
     private Type(String rep, int leftPrecedence, int rightPrecedence) {
         this.rep = rep;
+        this.leftPrecedence = leftPrecedence;
+        this.rightPrecedence = rightPrecedence;
+    }
+
+    /**
+     * Compares the left precedence of this object's type to the right
+     * precedence of another object's type.
+     * @param t
+     * @return
+     */
+    public int comparePrecedence(Type t) {
+        return leftPrecedence.compareTo(t.rightPrecedence);
+    }
+
+    public int getLeftPrecedence() {
+        return leftPrecedence;
+    }
+
+    public int getRightPrecedence() {
+        return rightPrecedence;
+    }
+    
+    public boolean isVariable() {
+        return this == IDENTIFIER || this == REAL || this == INTEGER;
+    }
+    
+    public boolean isOperator() {
+        return this == PLUS ||
+                this == MINUS ||
+                this == STAR ||
+                this == SLASH ||
+                this == CARET;
     }
 
     @Override

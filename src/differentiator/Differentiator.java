@@ -20,6 +20,12 @@ public class Differentiator implements Evaluator {
         return "";
     }
 
+    public AbstractSyntaxElement differentiate(
+            AbstractSyntaxElement expression) {
+        
+        return null;
+    }
+
     /**
      * Repeatedly reads expressions from the console, and outputs the results of
      * evaluating them. Inputting an empty line will terminate the program.

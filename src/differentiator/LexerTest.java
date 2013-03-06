@@ -92,4 +92,42 @@ public class LexerTest {
             assertEquals(t, expIter.next());
         }
     }
+
+    @Test
+    public void unaryMinus2Test() {
+        Lexer lex = Lexer.INSTANCE;
+
+        String input = "(-(0 +- 0.0) * - foobar)";
+        lex.setInput(input);
+        List<Token> expected = new LinkedList<Token>();
+        String expectedTokens[] = {
+                "$","-1","*","(","0","+","-1","*","0.0",
+                ")","*","-1","*","foobar","$"};
+        for (String t : expectedTokens) {
+           expected.add(Token.getInstance(t));
+        }
+        Iterator<Token> expIter = expected.iterator();
+        for (Token t : lex) {
+            assertEquals(t, expIter.next());
+        }
+    }
+    
+    @Test
+    public void unaryMinus3Test() {
+        Lexer lex = Lexer.INSTANCE;
+
+        String input = "(-(0 +-0.0) * - foobar)";
+        lex.setInput(input);
+        List<Token> expected = new LinkedList<Token>();
+        String expectedTokens[] = {
+                "$","-1","*","(","0","+","-1","*","0.0",
+                ")","*","-1","*","foobar","$"};
+        for (String t : expectedTokens) {
+           expected.add(Token.getInstance(t));
+        }
+        Iterator<Token> expIter = expected.iterator();
+        for (Token t : lex) {
+            assertEquals(t, expIter.next());
+        }
+    }
 }

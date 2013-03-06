@@ -44,8 +44,8 @@ public class Token {
     private final Type type;
 
     /** The value of the Token if not operator */
-    private Object value;
-    private Class<?> valueClass;
+    private final Object value;
+    private final Class<?> valueClass;
 
     /**
      * Private constructor for operators. Enforces singleton property.
@@ -53,6 +53,8 @@ public class Token {
      */
     private Token(Type type) {
         this.type = type;
+        value = null;
+        valueClass = null;
     }
 
     /**
@@ -62,7 +64,7 @@ public class Token {
      * @param value The String value of the Token
      */
     private Token(Type type, String value) {
-        this(type);
+        this.type = type;
         switch (type) {
             case INTEGER:
                 this.value = new BigInteger(value);
@@ -77,6 +79,8 @@ public class Token {
                 valueClass = String.class;
                 break;
             default:
+                this.value = null;
+                valueClass = null;
                 break;
         }
     }
