@@ -7,8 +7,8 @@ public class LeftParenExpression extends ExpressionElement {
         super(Type.LPAR);
     }
 
-    public void accept(ExpressionEvaluationVisitor eev) {
-        return;
+    public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
+        return null;
     }
 
     @Override

@@ -23,8 +23,8 @@ public class NumberExpression extends ExpressionElement {
         return value;
     }
 
-    public void accept(ExpressionEvaluationVisitor eev) {
-        eev.visit(this);
+    public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
+        return eev.visit(this);
     }
 
     @Override

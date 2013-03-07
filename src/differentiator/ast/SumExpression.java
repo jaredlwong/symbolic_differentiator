@@ -8,8 +8,8 @@ public class SumExpression extends ExpressionElement {
         super(Type.PLUS);
     }
 
-    public void accept(ExpressionEvaluationVisitor eev) {
-        eev.visit(this);
+    public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
+        return eev.visit(this);
     }
 
     @Override

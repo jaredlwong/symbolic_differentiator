@@ -7,8 +7,8 @@ public class RightParenExpression extends ExpressionElement {
         super(Type.RPAR);
     }
 
-    public void accept(ExpressionEvaluationVisitor eev) {
-        return;
+    public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
+        return null;
     }
 
     @Override

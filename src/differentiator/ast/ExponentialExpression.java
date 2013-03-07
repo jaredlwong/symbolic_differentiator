@@ -7,8 +7,8 @@ public class ExponentialExpression extends ExpressionElement {
         super(Type.CARET);
     }
 
-    public void accept(ExpressionEvaluationVisitor eev) {
-        eev.visit(this);
+    public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
+        return eev.visit(this);
     }
 
     @Override

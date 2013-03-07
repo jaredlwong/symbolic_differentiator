@@ -4,54 +4,54 @@ package differentiator.ast;
 /**
  * The Interface ExpressionEvaluationVisitor.
  */
-public interface ExpressionEvaluationVisitor {
+public interface ExpressionEvaluationVisitor<R> {
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(NumberExpression expression);
+    R visit(NumberExpression expression);
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(IdentifierExpression expression);
+    R visit(IdentifierExpression expression);
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(SumExpression expression);
+    R visit(SumExpression expression);
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(ProductExpression expression);
+    R visit(ProductExpression expression);
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(DifferenceExpression expression);
+    R visit(DifferenceExpression expression);
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(QuotientExpression expression);
+    R visit(QuotientExpression expression);
 
     /**
      * Visit.
      *
      * @param expression the expression
      */
-    void visit(ExponentialExpression expression);
+    R visit(ExponentialExpression expression);
 }

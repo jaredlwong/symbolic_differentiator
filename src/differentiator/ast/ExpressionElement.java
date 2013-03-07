@@ -112,7 +112,7 @@ public abstract class ExpressionElement implements
     @Override
     public abstract String toString();
 
-    public abstract void accept(ExpressionEvaluationVisitor eev);
+    public abstract <R> R accept(ExpressionEvaluationVisitor<R> eev);
     
     public abstract String interpret();
 }

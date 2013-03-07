@@ -4,8 +4,8 @@ package differentiator.ast;
  * The Class PrintTreeVisitor defines an example ExpressionEvaluationVisitor
  * that prints out an ExpressionElement tree with indentation.
  */
-public class PrintTreeVisitor implements ExpressionEvaluationVisitor {
-    
+public class PrintTreeVisitor implements ExpressionEvaluationVisitor<Void> {
+
     /** The indent. */
     private StringBuilder indent = new StringBuilder("");
 
@@ -13,81 +13,88 @@ public class PrintTreeVisitor implements ExpressionEvaluationVisitor {
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.NumberExpression)
      */
     @Override
-    public void visit(NumberExpression expression) {
+    public Void visit(NumberExpression expression) {
         System.out.println(indent.toString() + expression);
+        return null;
     }
 
     /* (non-Javadoc)
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.IdentifierExpression)
      */
     @Override
-    public void visit(IdentifierExpression expression) {
+    public Void visit(IdentifierExpression expression) {
         System.out.println(indent.toString() + expression);
+        return null;
     }
 
     /* (non-Javadoc)
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.SumExpression)
      */
     @Override
-    public void visit(SumExpression expression) {
+    public Void visit(SumExpression expression) {
         System.out.println(indent.toString() + expression);
         indent.append("  ");
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         indent.deleteCharAt(indent.length()-1);
         indent.deleteCharAt(indent.length()-1);
+        return null;
     }
 
     /* (non-Javadoc)
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.ProductExpression)
      */
     @Override
-    public void visit(ProductExpression expression) {
+    public Void visit(ProductExpression expression) {
         System.out.println(indent.toString() + expression);
         indent.append("  ");
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         indent.deleteCharAt(indent.length()-1);
         indent.deleteCharAt(indent.length()-1);
+        return null;
     }
 
     /* (non-Javadoc)
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.DifferenceExpression)
      */
     @Override
-    public void visit(DifferenceExpression expression) {
+    public Void visit(DifferenceExpression expression) {
         System.out.println(indent.toString() + expression);
         indent.append("  ");
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         indent.deleteCharAt(indent.length()-1);
         indent.deleteCharAt(indent.length()-1);
+        return null;
     }
 
     /* (non-Javadoc)
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.QuotientExpression)
      */
     @Override
-    public void visit(QuotientExpression expression) {
+    public Void visit(QuotientExpression expression) {
         System.out.println(indent.toString() + expression);
         indent.append("  ");
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         indent.deleteCharAt(indent.length()-1);
         indent.deleteCharAt(indent.length()-1);
+        return null;
     }
 
     /* (non-Javadoc)
      * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.ExponentialExpression)
      */
     @Override
-    public void visit(ExponentialExpression expression) {
+    public Void visit(ExponentialExpression expression) {
         System.out.println(indent.toString() + expression);
         indent.append("  ");
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         indent.deleteCharAt(indent.length()-1);
         indent.deleteCharAt(indent.length()-1);
+        return null;
     }
 
 }

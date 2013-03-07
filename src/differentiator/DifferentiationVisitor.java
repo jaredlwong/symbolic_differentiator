@@ -18,7 +18,7 @@ import differentiator.parse.Token;
  * The Class DifferentiationVisitor defines a visitor for an abstract syntax
  * tree. It will take the derivative of the input on which it is called.
  */
-public class DifferentiationVisitor implements ExpressionEvaluationVisitor {
+public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void> {
 
     /** The variable to differentiate on. */
     private final String variable;
@@ -53,43 +53,51 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor {
         buffer.clear();
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.NumberExpression)
+    /**
+     * This defines differentiation of a number. It is always 0.
      */
     @Override
-    public void visit(NumberExpression expression) {
+    public Void visit(NumberExpression expression) {
         buffer.push(new NumberExpression(Token.getInstance("0")));
+        return null;
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.IdentifierExpression)
+    /**
+     * This method defines differentiation of a variable. If it equals the
+     * variable we are differentiating on it is 1, otherwise 0.
      */
     @Override
-    public void visit(IdentifierExpression expression) {
+    public Void visit(IdentifierExpression expression) {
         if (expression.getValue().equals(variable)) {
             buffer.push(new NumberExpression(Token.getInstance("1")));
         } else {
             buffer.push(new NumberExpression(Token.getInstance("0")));
         }
+        return null;
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.SumExpression)
+    /**
+     * This method defines differentiation of a sum of expressions. It does the
+     * transformation:
+     * A + B -> dA/dx + DB/dx
      */
     @Override
-    public void visit(SumExpression expression) {
+    public Void visit(SumExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         ExpressionElement sumDx = ExpressionElementFactory.sum(
                 buffer.pop(), buffer.pop());
         buffer.push(sumDx);
+        return null;
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.ProductExpression)
+    /**
+     * This method defines differentiation of a product of expressions. It does
+     * the transformation:
+     * A * B -> dA/dx*B + dB/dx * A
      */
     @Override
-    public void visit(ProductExpression expression) {
+    public Void visit(ProductExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         ExpressionElement rDiv = buffer.pop();
@@ -104,13 +112,16 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor {
                 ExpressionElementFactory.sum(lPart, rPart);
 
         buffer.push(productDx);
+        return null;
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.DifferenceExpression)
+    /**
+     * This method defines differentiation of a product of expressions. It does
+     * the transformation:
+     * A * B -> dA/dx*B + dB/dx * A 
      */
     @Override
-    public void visit(DifferenceExpression expression) {
+    public Void visit(DifferenceExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
 
@@ -121,13 +132,17 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor {
                 ExpressionElementFactory.difference(lDiv, rDiv);
 
         buffer.push(differenceDx);
+        return null;
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.QuotientExpression)
+    /**
+     * This method defines differentiation of a quotient of expressions. It
+     * implements the quotient rule of differentiation. It does the
+     * transformation:
+     * A / B -> (dA/dx*B - dB/dx * A)/(B * B)
      */
     @Override
-    public void visit(QuotientExpression expression) {
+    public Void visit(QuotientExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
         ExpressionElement rDiv = buffer.pop();
@@ -152,13 +167,16 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor {
                         productDenominator);
 
         buffer.push(divisionDx);
+        return null;
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionEvaluationVisitor#visit(differentiator.ast.ExponentialExpression)
+    /**
+     * This method defines differentiation of an exponential. It does
+     * the transformation:
+     * A ^ B -> B * A ^ (B-1)
      */
     @Override
-    public void visit(ExponentialExpression expression) {
+    public Void visit(ExponentialExpression expression) {
         ExpressionElement power =
                 ExpressionElementFactory.difference(
                         expression.getRight(),
@@ -175,6 +193,7 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor {
                         exponential);
 
         buffer.push(diffExp);
+        return null;
     }
 
 }

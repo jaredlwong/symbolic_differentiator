@@ -7,8 +7,8 @@ public class TerminalExpression extends ExpressionElement {
         super(Type.TERMINAL);
     }
 
-    public void accept(ExpressionEvaluationVisitor eev) {
-        return;
+    public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
+        return null;
     }
 
     @Override
