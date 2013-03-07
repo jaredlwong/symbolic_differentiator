@@ -24,4 +24,8 @@ public class IdentifierExpression extends ExpressionElement {
     public String toString() {
         return "Identifier: " + value;
     }
+
+    public String interpret() {
+        return value;
+    }
 }

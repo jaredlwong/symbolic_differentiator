@@ -1,10 +1,6 @@
 package differentiator.ast;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 import differentiator.Token;
-import differentiator.Type;
 
 public class ExpressionElementFactory {
     /**
@@ -95,6 +91,23 @@ public class ExpressionElementFactory {
         product.setLeftElement(one);
         product.setRightElement(two);
         return product;
+    }
+
+    /**
+     * Take the quotient of two ExpressionElements by representing them as a
+     * QuotientExpression with a left and right child. The resulting expression
+     * will *not* be _terminal_.
+     * @param one
+     * @param two
+     * @return
+     */
+    public static ExpressionElement
+            quotient(ExpressionElement one, ExpressionElement two) {
+        ExpressionElement quotient = new QuotientExpression();
+        quotient.setIsTerminal(false);
+        quotient.setLeftElement(one);
+        quotient.setRightElement(two);
+        return quotient;
     }
 
 /*

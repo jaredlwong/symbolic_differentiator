@@ -15,4 +15,13 @@ public class ExponentialExpression extends ExpressionElement {
     public String toString() {
         return "Exponential";
     }
+
+    @Override
+    public String interpret() {
+        StringBuilder result = new StringBuilder();
+        result.append(this.getLeft().interpret());
+        result.append("^");
+        result.append(this.getRight().interpret());
+        return result.toString();
+    }
 }

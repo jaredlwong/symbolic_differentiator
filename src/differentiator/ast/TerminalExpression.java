@@ -15,4 +15,9 @@ public class TerminalExpression extends ExpressionElement {
     public String toString() {
         return "Terminal";
     }
+
+    @Override
+    public String interpret() {
+        return "";
+    }
 }

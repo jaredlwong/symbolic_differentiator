@@ -3,6 +3,7 @@ package differentiator;
 import java.util.ArrayList;
 import java.util.List;
 
+import differentiator.ast.DifferentiationVisitor;
 import differentiator.ast.ExpressionElement;
 import differentiator.ast.ExpressionElementFactory;
 import differentiator.ast.PrintTreeVisitor;
@@ -125,11 +126,16 @@ public enum Parser {
     public static void main(String args[]) {
         Lexer lex = Lexer.INSTANCE;
 
-        String input = "(x - 1)";
+        String input = "(x^x)";
         lex.setInput(input);
 
         INSTANCE.setLexer(lex);
         ExpressionElement root = INSTANCE.getParseTree();
-        root.accept(new PrintTreeVisitor());
+        DifferentiationVisitor diff = new DifferentiationVisitor("x");
+        root.accept(diff);
+        ExpressionElement dres = diff.getDerivative();
+        System.out.println(root.interpret());
+        System.out.println(dres.interpret());
+        //root.accept(new PrintTreeVisitor());
     }
 }

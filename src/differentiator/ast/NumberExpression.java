@@ -31,4 +31,12 @@ public class NumberExpression extends ExpressionElement {
     public String toString() {
         return "Number: " + value;
     }
+
+    @Override
+    public String interpret() {
+        if (value.compareTo(BigDecimal.valueOf(0)) < 0) {
+            return "(" + value.toString() + ")";
+        }
+        return value.toString();
+    }
 }

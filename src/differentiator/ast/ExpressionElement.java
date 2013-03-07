@@ -12,7 +12,7 @@ public abstract class ExpressionElement implements
     public ExpressionElement(Type t) {
         left = null;
         right = null;
-        isTerminal = false;
+        isTerminal = true;
         type = t;
     }
 
@@ -113,4 +113,6 @@ public abstract class ExpressionElement implements
     public abstract String toString();
 
     public abstract void accept(ExpressionEvaluationVisitor eev);
+    
+    public abstract String interpret();
 }

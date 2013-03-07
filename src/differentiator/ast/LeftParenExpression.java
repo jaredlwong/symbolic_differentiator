@@ -15,4 +15,9 @@ public class LeftParenExpression extends ExpressionElement {
     public String toString() {
         return "Left Parenthesis";
     }
+
+    @Override
+    public String interpret() {
+        return "";
+    }
 }
