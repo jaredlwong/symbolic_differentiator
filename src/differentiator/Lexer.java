@@ -63,7 +63,7 @@ public enum Lexer implements Iterable<Token> {
                 // a variable, and the current token is a minus assume it's
                 // a unary minus and do the transformation "-" -> "-1 *"
                 if (token.getType() == Type.MINUS &&
-                        (lastToken.isOperator() ||
+                        (!lastToken.getType().isVariable() ||
                         lastToken.getType() == Type.TERMINAL)) {
                     Token nextToken = Token.getInstance(tokenizer.next());
                     // If the last token was not an operator, it must have been

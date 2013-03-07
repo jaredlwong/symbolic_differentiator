@@ -2,6 +2,8 @@ package differentiator;
 
 import java.util.Stack;
 
+import differentiator.ast.ExpressionElement;
+
 public enum ParserStack {
     INSTANCE;
 

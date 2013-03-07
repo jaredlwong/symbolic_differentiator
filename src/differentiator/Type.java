@@ -20,8 +20,7 @@ public enum Type {
     TERMINAL("$", 0, 0),
 
     // non-operators
-    INTEGER("Z",    6, 5),
-    REAL("R",       6, 5),
+    NUMBER("N",       6, 5),
     IDENTIFIER("X", 6, 5);
 
     /**
@@ -30,7 +29,7 @@ public enum Type {
      * representations.
      */
     private final String rep;
-    
+
     private final Integer leftPrecedence;
     private final Integer rightPrecedence;
 
@@ -57,11 +56,11 @@ public enum Type {
     public int getRightPrecedence() {
         return rightPrecedence;
     }
-    
+
     public boolean isVariable() {
-        return this == IDENTIFIER || this == REAL || this == INTEGER;
+        return this == IDENTIFIER || this == NUMBER;
     }
-    
+
     public boolean isOperator() {
         return this == PLUS ||
                 this == MINUS ||

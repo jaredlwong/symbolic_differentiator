@@ -3,6 +3,10 @@ package differentiator;
 import java.util.ArrayList;
 import java.util.List;
 
+import differentiator.ast.ExpressionElement;
+import differentiator.ast.ExpressionElementFactory;
+import differentiator.ast.PrintTreeVisitor;
+
 /**
  * The parser gets a bunch of tokens from the lexer and determines what
  * expression was written by the user.
@@ -22,7 +26,7 @@ public enum Parser {
         ExpressionElement elements[] =
                 new ExpressionElement[tokens.length];
         for (int i = 0; i < tokens.length; ++i) {
-            elements[i] = new ExpressionElement(tokens[i]);
+            elements[i] = ExpressionElementFactory.getInstance(tokens[i]);
         }
 
         ParserStack stack = ParserStack.INSTANCE;
@@ -126,6 +130,6 @@ public enum Parser {
 
         INSTANCE.setLexer(lex);
         ExpressionElement root = INSTANCE.getParseTree();
-        System.out.println(root.printEvaluationString());
+        root.accept(new PrintTreeVisitor());
     }
 }

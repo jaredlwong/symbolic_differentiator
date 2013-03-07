@@ -1,11 +1,8 @@
 package differentiator;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.EnumMap;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * A token is a lexical item that the parser uses.
@@ -16,36 +13,41 @@ public class Token {
      * The map of operator Types to Tokens. Note that all operator Tokens are
      * singletons.
      */
-    private static final Map<Type, Token> OPMAP =
+    private static final Map<Type, Token> SINGLETON_MAP =
             new EnumMap<Type, Token>(Type.class);
 
-    /** Intended to hold the characters of the operators, this excludes our
-     * special starting and ending parens.
-     */
-    private static final Set<Character> OPCHARSET =
-            new HashSet<Character>();
+    static {
+        SINGLETON_MAP.put(Type.PLUS, new Token(Type.PLUS));
+        SINGLETON_MAP.put(Type.MINUS, new Token(Type.MINUS));
+        SINGLETON_MAP.put(Type.STAR, new Token(Type.STAR));
+        SINGLETON_MAP.put(Type.SLASH, new Token(Type.SLASH));
+        SINGLETON_MAP.put(Type.CARET, new Token(Type.CARET));
+        SINGLETON_MAP.put(Type.LPAR, new Token(Type.LPAR));
+        SINGLETON_MAP.put(Type.RPAR, new Token(Type.RPAR));
+        SINGLETON_MAP.put(Type.TERMINAL, new Token(Type.TERMINAL));
+    }
+
+    private static final Map<String, Type> REGEX_PATTERNS =
+            new HashMap<String, Type>();
 
     static {
-        OPMAP.put(Type.PLUS, new Token(Type.PLUS));
-        OPMAP.put(Type.MINUS, new Token(Type.MINUS));
-        OPMAP.put(Type.STAR, new Token(Type.STAR));
-        OPMAP.put(Type.SLASH, new Token(Type.SLASH));
-        OPMAP.put(Type.CARET, new Token(Type.CARET));
-        OPMAP.put(Type.LPAR, new Token(Type.LPAR));
-        OPMAP.put(Type.RPAR, new Token(Type.RPAR));
-        OPMAP.put(Type.TERMINAL, new Token(Type.TERMINAL));
-
-        for (Type type : OPMAP.keySet()) {
-            OPCHARSET.add(new Character(type.toString().charAt(0)));
-        }
+        REGEX_PATTERNS.put("\\+", Type.PLUS);
+        REGEX_PATTERNS.put("-", Type.MINUS);
+        REGEX_PATTERNS.put("\\*", Type.STAR);
+        REGEX_PATTERNS.put("/", Type.SLASH);
+        REGEX_PATTERNS.put("\\^", Type.CARET);
+        REGEX_PATTERNS.put("\\(", Type.LPAR);
+        REGEX_PATTERNS.put("\\)", Type.RPAR);
+        REGEX_PATTERNS.put("\\$", Type.TERMINAL);
+        REGEX_PATTERNS.put("-?[0-9]*\\.[0-9]+|-?[0-9]+(\\.[0-9]*)?", Type.NUMBER);
+        REGEX_PATTERNS.put("[a-zA-Z]+", Type.IDENTIFIER);
     }
 
     /** The type of the Token */
     private final Type type;
 
     /** The value of the Token if not operator */
-    private final Object value;
-    private final Class<?> valueClass;
+    private final String value;
 
     /**
      * Private constructor for operators. Enforces singleton property.
@@ -54,7 +56,6 @@ public class Token {
     private Token(Type type) {
         this.type = type;
         value = null;
-        valueClass = null;
     }
 
     /**
@@ -65,23 +66,10 @@ public class Token {
      */
     private Token(Type type, String value) {
         this.type = type;
-        switch (type) {
-            case INTEGER:
-                this.value = new BigInteger(value);
-                valueClass = BigInteger.class;
-                break;
-            case REAL:
-                this.value = new BigDecimal(value);
-                valueClass = BigDecimal.class;
-                break;
-            case IDENTIFIER:
-                this.value = value;
-                valueClass = String.class;
-                break;
-            default:
-                this.value = null;
-                valueClass = null;
-                break;
+        if (type == Type.NUMBER || type == Type.IDENTIFIER) {
+            this.value = value;
+        } else {
+            this.value = null;
         }
     }
 
@@ -92,8 +80,8 @@ public class Token {
      */
     public static Token getInstance(String token) {
         Type type = getType(token);
-        if (OPMAP.containsKey(type)) {
-            return OPMAP.get(type);
+        if (SINGLETON_MAP.containsKey(type)) {
+            return SINGLETON_MAP.get(type);
         }
         return new Token(type, token);
     }
@@ -105,14 +93,11 @@ public class Token {
      *          token not recognized.
      */
     private static Type getType(String token) {
-        for (Type type : OPMAP.keySet()) {
-            if (token.equals(type.toString())) return type;
+        for (String pattern : REGEX_PATTERNS.keySet()) {
+            if (token.matches(pattern)) {
+                return REGEX_PATTERNS.get(pattern);
+            }
         }
-        if (token.matches("\\$")) return Type.TERMINAL;
-        if (token.matches("-?[0-9]+")) return Type.INTEGER;
-        if (token.matches("-?[0-9]*\\.[0-9]+|-?[0-9]+\\.[0-9]*"))
-            return Type.REAL;
-        if (token.matches("[a-zA-Z]+")) return Type.IDENTIFIER;
         throw new InvalidTokenException("Invalid Token: " + token);
     }
 
@@ -123,82 +108,47 @@ public class Token {
         return type;
     }
 
-    public boolean isOperator() {
-        return OPMAP.containsKey(type);
-    }
-
-    public static boolean isOperator(char c) {
-        return OPCHARSET.contains(c);
-    }
-
     /**
      * Can only call getValue on non-operator Tokens.
      * @return value of non-operator Token
      */
-    public Object getValue() {
+    public String getValue() {
         return value;
-    }
-
-    public Class<?> getValueClass() {
-        return valueClass;
     }
 
     @Override
     public String toString() {
-        if (OPMAP.containsKey(type)) {
-            return type.toString();
-        } else if (this.type == Type.TERMINAL) {
-            return Type.TERMINAL.toString();
+        if (value == null) {
+            return "Token [type=" + type;
         }
-        return this.value.toString();
+        return "Token [type=" + type + ", value=" + value + "]";
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         result = prime * result + ((value == null) ? 0 : value.hashCode());
-        result = prime * result
-                + ((valueClass == null) ? 0 : valueClass.hashCode());
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (!(obj instanceof Token)) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         Token other = (Token) obj;
-        if (type != other.type) {
+        if (type != other.type)
             return false;
-        }
         if (value == null) {
-            if (other.value != null) {
+            if (other.value != null)
                 return false;
-            }
-        } else if (!value.equals(other.value)) {
+        } else if (!value.equals(other.value))
             return false;
-        }
-        if (valueClass == null) {
-            if (other.valueClass != null) {
-                return false;
-            }
-        } else if (!valueClass.equals(other.valueClass)) {
-            return false;
-        }
         return true;
     }
 }

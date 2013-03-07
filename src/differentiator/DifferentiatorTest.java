@@ -1,5 +1,7 @@
 package differentiator;
 
+import differentiator.ast.ExpressionElement;
+
 //import org.junit.Test;
 
 public class DifferentiatorTest {

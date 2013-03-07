@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import differentiator.ast.ExpressionElement;
+
 
 /** Symbolic differentiator */
 public class Differentiator implements Evaluator {
