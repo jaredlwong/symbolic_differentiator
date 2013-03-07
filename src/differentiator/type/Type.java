@@ -5,6 +5,8 @@ package differentiator.type;
  * All the types of tokens that can be made.
  */
 public enum Type {
+    // The precedence ordering is partially based on ideas from
+    // "The Dragon Book"
     // operators
     PLUS("+",  2, 1),
     MINUS("-", 2, 1),

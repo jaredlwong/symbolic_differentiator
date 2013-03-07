@@ -30,6 +30,9 @@ public class Token {
         SINGLETON_MAP.put(Type.TERMINAL, new Token(Type.TERMINAL));
     }
 
+    /**
+     * A map from regex patterns to types.
+     */
     private static final Map<String, Type> REGEX_PATTERNS =
             new HashMap<String, Type>();
 

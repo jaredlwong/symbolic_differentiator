@@ -9,7 +9,8 @@ import differentiator.type.Type;
 
 /**
  * The parser gets a bunch of tokens from the lexer and determines what
- * expression was written by the user.
+ * expression was written by the user. This parser is an implementation
+ * of an operator precedence parser as described in "The Dragon Book"
  */
 public enum Parser {
     INSTANCE;
@@ -20,6 +21,12 @@ public enum Parser {
         lexer = _lexer;
     }
 
+    /**
+     * This method generates an ExpressionElement node that represents the
+     * parse tree from the tokens in the lexer. It determines the order in
+     * which to parse expressions based on operator-precedence parsing.
+     * @return
+     */
     public ExpressionElement getParseTree() {
         // Convert tokens to ase representation
         Token tokens[] = lexer.getTokens();
@@ -77,6 +84,13 @@ public enum Parser {
         return null;
     }
 
+    /**
+     * This method takes an expression in the form of a list of
+     * ExpressionElements and returns another ExpressionElement that
+     * represents that expression.
+     * @param expression
+     * @return
+     */
     private static ExpressionElement
             processExpression(List<ExpressionElement> expression) {
         if (expression.size() == 1) {
