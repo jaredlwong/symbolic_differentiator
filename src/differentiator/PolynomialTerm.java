@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PolynomialTerm {
+
     private BigDecimal coefficient;
     private List<String> variables;
 
