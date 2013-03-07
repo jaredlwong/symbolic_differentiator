@@ -1,4 +1,4 @@
-package differentiator;
+package differentiator.parse;
 
 import static org.junit.Assert.assertTrue;
 
@@ -51,17 +51,25 @@ public class TokenizerTest {
             assertTrue(expected[index++].equals(tt));
         }
     }
-    
+
     @Test
     public void spacingTest() {
         Tokenizer tok = Tokenizer.INSTANCE;
-        tok.setInput("   (    (   0+   0.0)   *  foobar)   ");
-        String expected[] = {"(","(","0","+","0.0",")","*","foobar",")"};
+        tok.setInput("   (  \n (   -0+   -0.0)   *  foobar)   ");
+        String expected[] = {"(","(","-","0","+","-","0.0",")","*","foobar",")"};
         int index = 0;
         while (tok.hasNext()) {
             String tt = tok.next();
             assertTrue(expected[index++].equals(tt));
         }
-        
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void badInputTest() {
+        Tokenizer tok = Tokenizer.INSTANCE;
+        tok.setInput("(%(   -0+   -0.0)   *  foobar)");
+        while (tok.hasNext()) {
+            tok.next();
+        }
     }
 }

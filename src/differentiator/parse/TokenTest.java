@@ -1,9 +1,11 @@
-package differentiator;
+package differentiator.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import differentiator.type.Type;
 
 public class TokenTest {
     @Test
@@ -16,6 +18,33 @@ public class TokenTest {
 
         Token star = Token.getInstance("*");
         assertEquals(Type.STAR, star.getType());
+
+        Token plus = Token.getInstance("+");
+        assertEquals(Type.PLUS, plus.getType());
+
+        Token minus = Token.getInstance("-");
+        assertEquals(Type.MINUS, minus.getType());
+
+        Token slash = Token.getInstance("/");
+        assertEquals(Type.SLASH, slash.getType());
+
+        Token caret = Token.getInstance("^");
+        assertEquals(Type.CARET, caret.getType());
+
+        Token terminal = Token.getInstance("$");
+        assertEquals(Type.TERMINAL, terminal.getType());
+
+        Token integer = Token.getInstance("1234567890");
+        assertEquals(Type.NUMBER, integer.getType());
+        assertEquals("1234567890", integer.getValue());
+
+        Token decimal = Token.getInstance(".12345");
+        assertEquals(Type.NUMBER, decimal.getType());
+        assertEquals(".12345", decimal.getValue());
+
+        Token identifier = Token.getInstance("hello");
+        assertEquals(Type.IDENTIFIER, identifier.getType());
+        assertEquals("hello", identifier.getValue());
     }
 
     @Test
@@ -51,34 +80,34 @@ public class TokenTest {
     @Test
     public void basicIntegerTests() {
         Token simple = Token.getInstance("0123456789");
-        assertEquals(Type.INTEGER, simple.getType());
+        assertEquals(Type.NUMBER, simple.getType());
 
         Token negsimple = Token.getInstance("-0123456789");
-        assertEquals(Type.INTEGER, negsimple.getType());
+        assertEquals(Type.NUMBER, negsimple.getType());
 
         Token duplicate = Token.getInstance("-00112233445566778899");
-        assertEquals(Type.INTEGER, duplicate.getType());
+        assertEquals(Type.NUMBER, duplicate.getType());
     }
 
     @Test
     public void basicRealTests() {
         Token simple1 = Token.getInstance("0123456789.");
-        assertEquals(Type.REAL, simple1.getType());
+        assertEquals(Type.NUMBER, simple1.getType());
 
         Token simple2 = Token.getInstance(".0123456789");
-        assertEquals(Type.REAL, simple2.getType());
+        assertEquals(Type.NUMBER, simple2.getType());
 
         Token simple3 = Token.getInstance("01234.56789");
-        assertEquals(Type.REAL, simple3.getType());
+        assertEquals(Type.NUMBER, simple3.getType());
 
         Token negsimple1 = Token.getInstance("-.0123456789");
-        assertEquals(Type.REAL, negsimple1.getType());
+        assertEquals(Type.NUMBER, negsimple1.getType());
 
         Token negsimple2 = Token.getInstance("-0123456789.");
-        assertEquals(Type.REAL, negsimple2.getType());
+        assertEquals(Type.NUMBER, negsimple2.getType());
 
         Token negsimple3 = Token.getInstance("-012345.6789");
-        assertEquals(Type.REAL, negsimple3.getType());
+        assertEquals(Type.NUMBER, negsimple3.getType());
     }
 
     @Test

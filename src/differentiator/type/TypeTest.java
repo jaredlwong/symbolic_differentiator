@@ -1,10 +1,12 @@
-package differentiator;
+package differentiator.type;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class TypeTest {
+
+    /** Simple test to ensure operator precedence is working. */
     @Test
     public void basicTest() {
         for (Type t : Type.values()) {

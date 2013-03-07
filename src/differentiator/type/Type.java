@@ -1,5 +1,6 @@
-package differentiator;
+package differentiator.type;
 
+// TODO: Auto-generated Javadoc
 /**
  * All the types of tokens that can be made.
  */
@@ -7,12 +8,9 @@ public enum Type {
     // operators
     PLUS("+",  2, 1),
     MINUS("-", 2, 1),
-
     STAR("*",  4, 3),
     SLASH("/", 4, 3),
-
     CARET("^", 4, 5),
-
     LPAR("(", 0, 5),
     RPAR(")", 6, 0),
 
@@ -20,8 +18,7 @@ public enum Type {
     TERMINAL("$", 0, 0),
 
     // non-operators
-    INTEGER("Z",    6, 5),
-    REAL("R",       6, 5),
+    NUMBER("N",       6, 5),
     IDENTIFIER("X", 6, 5);
 
     /**
@@ -30,10 +27,20 @@ public enum Type {
      * representations.
      */
     private final String rep;
-    
+
+    /** The left precedence of the operator. */
     private final Integer leftPrecedence;
+
+    /** The right precedence of the operator. */
     private final Integer rightPrecedence;
 
+    /**
+     * Instantiates a new type.
+     *
+     * @param rep the rep
+     * @param leftPrecedence the left precedence
+     * @param rightPrecedence the right precedence
+     */
     private Type(String rep, int leftPrecedence, int rightPrecedence) {
         this.rep = rep;
         this.leftPrecedence = leftPrecedence;
@@ -43,25 +50,46 @@ public enum Type {
     /**
      * Compares the left precedence of this object's type to the right
      * precedence of another object's type.
-     * @param t
-     * @return
+     *
+     * @param t the t
+     * @return the int
      */
     public int comparePrecedence(Type t) {
         return leftPrecedence.compareTo(t.rightPrecedence);
     }
 
+    /**
+     * Gets the left precedence.
+     *
+     * @return the left precedence
+     */
     public int getLeftPrecedence() {
         return leftPrecedence;
     }
 
+    /**
+     * Gets the right precedence.
+     *
+     * @return the right precedence
+     */
     public int getRightPrecedence() {
         return rightPrecedence;
     }
-    
+
+    /**
+     * Checks if is variable.
+     *
+     * @return true, if is variable
+     */
     public boolean isVariable() {
-        return this == IDENTIFIER || this == REAL || this == INTEGER;
+        return this == IDENTIFIER || this == NUMBER;
     }
-    
+
+    /**
+     * Checks if is operator.
+     *
+     * @return true, if is operator
+     */
     public boolean isOperator() {
         return this == PLUS ||
                 this == MINUS ||
@@ -70,6 +98,9 @@ public enum Type {
                 this == CARET;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
     @Override
     public String toString() {
         return rep;

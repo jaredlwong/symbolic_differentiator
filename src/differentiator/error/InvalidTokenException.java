@@ -1,4 +1,4 @@
-package differentiator;
+package differentiator.error;
 
 public class InvalidTokenException extends IllegalArgumentException {
     /**

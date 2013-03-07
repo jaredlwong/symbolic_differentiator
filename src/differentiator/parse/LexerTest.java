@@ -1,4 +1,4 @@
-package differentiator;
+package differentiator.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -12,10 +12,10 @@ import java.util.List;
 import org.junit.Test;
 
 public class LexerTest {
+    private static final Lexer lex = Lexer.INSTANCE;
+
     @Test
     public void extremelyBasicTest() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "()";
 
         lex.setInput(input);
@@ -37,8 +37,6 @@ public class LexerTest {
 
     @Test
     public void basicTest() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "((0 + 0.0) * foobar)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -59,8 +57,6 @@ public class LexerTest {
 
     @Test
     public void enumerateTest() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "((0 + 0.0) * foobar)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -76,8 +72,6 @@ public class LexerTest {
 
     @Test
     public void unaryMinusTest() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "(-(0 + - 0.0) * - foobar)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -95,8 +89,6 @@ public class LexerTest {
 
     @Test
     public void unaryMinus2Test() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "(-(0 +- 0.0) * - foobar)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -114,8 +106,6 @@ public class LexerTest {
 
     @Test
     public void unaryMinus3Test() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "(-(0 +-0.0) * - foobar)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -133,8 +123,6 @@ public class LexerTest {
 
     @Test
     public void unaryMinus4Test() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "(-foo^bar)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -151,8 +139,6 @@ public class LexerTest {
 
     @Test
     public void unaryMinus5Test() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "( -1 - 10 * -foobar ^ 10)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -170,8 +156,6 @@ public class LexerTest {
 
     @Test
     public void unaryMinus6Test() {
-        Lexer lex = Lexer.INSTANCE;
-
         String input = "((x+y)^(-1)-b)";
         lex.setInput(input);
         List<Token> expected = new LinkedList<Token>();
@@ -186,5 +170,11 @@ public class LexerTest {
         for (Token t : lex) {
             assertEquals(t, expIter.next());
         }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void simpleBadInput() {
+        String input = "(";
+        lex.setInput(input);
     }
 }

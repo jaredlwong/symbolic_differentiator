@@ -1,7 +1,11 @@
-package differentiator;
+package differentiator.parse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import differentiator.ast.ExpressionElement;
+import differentiator.ast.ExpressionElementFactory;
+import differentiator.type.Type;
 
 /**
  * The parser gets a bunch of tokens from the lexer and determines what
@@ -22,7 +26,7 @@ public enum Parser {
         ExpressionElement elements[] =
                 new ExpressionElement[tokens.length];
         for (int i = 0; i < tokens.length; ++i) {
-            elements[i] = new ExpressionElement(tokens[i]);
+            elements[i] = ExpressionElementFactory.getInstance(tokens[i]);
         }
 
         ParserStack stack = ParserStack.INSTANCE;
@@ -116,16 +120,5 @@ public enum Parser {
         }
         throw new IllegalArgumentException(
                 "Malformed input");
-    }
-
-    public static void main(String args[]) {
-        Lexer lex = Lexer.INSTANCE;
-
-        String input = "(x - 1)";
-        lex.setInput(input);
-
-        INSTANCE.setLexer(lex);
-        ExpressionElement root = INSTANCE.getParseTree();
-        System.out.println(root.printEvaluationString());
     }
 }
