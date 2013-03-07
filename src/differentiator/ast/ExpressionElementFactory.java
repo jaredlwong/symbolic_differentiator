@@ -1,6 +1,6 @@
 package differentiator.ast;
 
-import differentiator.Token;
+import differentiator.parse.Token;
 
 public class ExpressionElementFactory {
     /**

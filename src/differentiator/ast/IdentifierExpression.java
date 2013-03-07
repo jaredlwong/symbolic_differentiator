@@ -1,7 +1,7 @@
 package differentiator.ast;
 
-import differentiator.Token;
-import differentiator.Type;
+import differentiator.parse.Token;
+import differentiator.type.Type;
 
 public class IdentifierExpression extends ExpressionElement {
     private final String value;

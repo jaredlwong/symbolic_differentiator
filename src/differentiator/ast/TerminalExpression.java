@@ -1,6 +1,6 @@
 package differentiator.ast;
 
-import differentiator.Type;
+import differentiator.type.Type;
 
 public class TerminalExpression extends ExpressionElement {
     public TerminalExpression() {

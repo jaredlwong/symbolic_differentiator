@@ -2,8 +2,8 @@ package differentiator.ast;
 
 import java.math.BigDecimal;
 
-import differentiator.Token;
-import differentiator.Type;
+import differentiator.parse.Token;
+import differentiator.type.Type;
 
 public class NumberExpression extends ExpressionElement {
     private final BigDecimal value;
