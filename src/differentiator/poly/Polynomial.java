@@ -113,13 +113,20 @@ public class Polynomial {
     public String toString() {
         StringBuilder res = new StringBuilder();
         Iterator<PolynomialTerm> polyTermIter = terms.iterator();
-        res.append(polyTermIter.next().toString());
         while (polyTermIter.hasNext()) {
             String nextTerm = polyTermIter.next().toString();
-            if (!nextTerm.equals("")) {
+            if (!res.toString().equals("")) {
                 res.append("+");
-                res.append(nextTerm);
             }
+            res.append(nextTerm);
+        }
+        if (res.toString().equals("")) {
+            res.append("0");
+        }
+        // we check add plus iff no start, we also need to check for ending
+        // this was harder to do above so we hack it a little here.
+        if (res.charAt(res.length()-1) == '+') {
+            res.deleteCharAt(res.length()-1);
         }
         return res.toString();
     }

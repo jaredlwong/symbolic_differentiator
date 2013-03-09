@@ -59,6 +59,28 @@ public class Differentiator implements Evaluator {
         }
         return false;
     }
+    
+    private static final String NOTICE =
+        "You can differentiate any expression with numbers\n"
+      + "(integer or floating), variables (defined as any\n"
+      + "continuous string of [a-zA-Z]), or the operators\n"
+      + "+, *, -, /, ^ (see note below on exponentiation).\n"
+      + "\n"
+      + "Normal operator precedence holds and the only\n"
+      + "requirement is that each expression start and end\n"
+      + "with a parenthesis; left and right, respectively.\n"
+      + "\n"
+      + "NOTE: Exponentiation is not fully supported. Only\n"
+      + "exponentials of the form x^(something) are\n"
+      + "supported. Exponentials without a base of x are not\n"
+      + "evaluated properly.\n"
+      + "\n"
+      + "Type \"#simplify\" after you have evaluated an\n"
+      + "expression in order to see a simplified form of\n"
+      + "your input and the derivative of the input.\n"
+      + "\n"
+      + "NOTE: For now, simplification only works on\n"
+      + "expressions with numbers, identifiers, +, and *.\n";
 
     /**
      * Repeatedly reads expressions from the console, and outputs the results of
@@ -66,7 +88,9 @@ public class Differentiator implements Evaluator {
      * @param args unused
      */
     public static void main(String[] args) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println(NOTICE);
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(System.in));
         String input = null;
         ExpressionElement expression = null;
         ExpressionElement derivative = null;
@@ -80,7 +104,9 @@ public class Differentiator implements Evaluator {
             if (!input.equals("")) {
                 if (input.equals("#simplify")) {
                     if (!canBeSimplified(expression)) {
-                        System.err.println("Error: unsupported operators for simplification");
+                        System.err.println(
+                                "Error: unsupported operators for "
+                                + "simplification");
                         continue;
                     }
                     if (currentState == State.BEGIN) {
@@ -118,5 +144,6 @@ public class Differentiator implements Evaluator {
                 }
             }
         } while (!input.equals(""));
+        System.out.println("goodbye");
     }
 }
