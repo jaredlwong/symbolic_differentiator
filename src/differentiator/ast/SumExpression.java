@@ -3,7 +3,7 @@ package differentiator.ast;
 import differentiator.type.Type;
 
 /**
- * The Class SumExpression.
+ * The Class SumExpression represents the sum of two other expressions.
  */
 public class SumExpression extends ExpressionElement {
 
@@ -14,23 +14,10 @@ public class SumExpression extends ExpressionElement {
         super(Type.PLUS);
     }
 
-    @Override
     public <R> R accept(ExpressionEvaluationVisitor<R> eev) {
         return eev.visit(this);
     }
 
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionElement#toString()
-     */
-    @Override
-    public String toString() {
-        return "Sum";
-    }
-
-    /* (non-Javadoc)
-     * @see differentiator.ast.ExpressionElement#interpret()
-     */
-    @Override
     public String interpret() {
         StringBuilder result = new StringBuilder();
         result.append("(");
@@ -39,5 +26,10 @@ public class SumExpression extends ExpressionElement {
         result.append(this.getRight().interpret());
         result.append(")");
         return result.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Sum";
     }
 }

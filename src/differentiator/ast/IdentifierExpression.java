@@ -3,15 +3,24 @@ package differentiator.ast;
 import differentiator.parse.Token;
 import differentiator.type.Type;
 
+/**
+ * The Class IdentifierExpression represents an identifier.
+ */
 public class IdentifierExpression extends ExpressionElement {
     private final String value;
 
+    /**
+     * Instantiates a new IdentifierExpression.
+     * @param token A token representing an identifier.
+     */
     public IdentifierExpression(Token token) {
         super(Type.IDENTIFIER);
-        assert(token.getType() == Type.IDENTIFIER);
         value = token.getValue();
     }
 
+    /**
+     * @return The identifier that this IdentifierExpression represents.
+     */
     public String getValue() {
         return value;
     }
@@ -20,12 +29,11 @@ public class IdentifierExpression extends ExpressionElement {
         return eev.visit(this);
     }
 
-    @Override
-    public String toString() {
-        return "Identifier: " + value;
-    }
-
     public String interpret() {
         return value;
+    }
+
+    public String toString() {
+        return "Identifier: " + value;
     }
 }

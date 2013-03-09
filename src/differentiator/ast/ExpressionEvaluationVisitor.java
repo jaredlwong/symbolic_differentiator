@@ -1,57 +1,57 @@
 package differentiator.ast;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Interface ExpressionEvaluationVisitor.
+ * The Interface ExpressionEvaluationVisitor defines a visitor for elements
+ * that extend the abstract class ExpressionElement.
  */
 public interface ExpressionEvaluationVisitor<R> {
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param A NumberExpression to evaluate.
      */
     R visit(NumberExpression expression);
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param A NumberExpression to evaluate.
      */
     R visit(IdentifierExpression expression);
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param A SumExpression to evaluate.
      */
     R visit(SumExpression expression);
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param A ProductExpression to evaluate.
      */
     R visit(ProductExpression expression);
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param A DifferenceExpression to evaluate.
      */
     R visit(DifferenceExpression expression);
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param A QuotientExpression to evaluate.
      */
     R visit(QuotientExpression expression);
 
     /**
-     * Visit.
-     *
-     * @param expression the expression
+     * A visitor may choose to throw an UnsupportedOperationException if visit
+     * cannot be defined on this type of expression.
+     * @param An ExponentialExpression to evaluate.
      */
     R visit(ExponentialExpression expression);
 }

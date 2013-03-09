@@ -2,7 +2,15 @@ package differentiator.ast;
 
 import differentiator.type.Type;
 
+/**
+ * The Class QuotientExpression represents the quotient of two other
+ * expressions.
+ */
 public class QuotientExpression extends ExpressionElement {
+
+    /**
+     * Instantiates a new quotient expression.
+     */
     public QuotientExpression() {
         super(Type.SLASH);
     }
@@ -11,12 +19,6 @@ public class QuotientExpression extends ExpressionElement {
         return eev.visit(this);
     }
 
-    @Override
-    public String toString() {
-        return "Quotient";
-    }
-
-    @Override
     public String interpret() {
         StringBuilder result = new StringBuilder();
         result.append("(");
@@ -25,5 +27,9 @@ public class QuotientExpression extends ExpressionElement {
         result.append(this.getRight().interpret());
         result.append(")");
         return result.toString();
+    }
+
+    public String toString() {
+        return "Quotient";
     }
 }

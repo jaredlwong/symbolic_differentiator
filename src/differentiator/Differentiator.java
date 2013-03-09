@@ -10,12 +10,12 @@ import differentiator.ast.ExpressionElement;
  * Symbolic differentiator
  * 
  * Can differentiate any expression with numbers (integer or floating),
- * variables (defined as any continuous string of [a-zA-Z]), or the opterators
+ * variables (defined as any continuous string of [a-zA-Z]), or the operators
  * +, *, -, /, ^ (see note below on exponentiation).
- * 
- * NOTE: Exponentiation is not fully supported. Only exponentials of the from
- * x^(something) are supported. Exponentials without a base of x are not
- * evaluated properly.
+ * <br>
+ * <b>NOTE: Exponentiation is not fully supported. Only exponentials of the
+ * form x^(something) are supported. Exponentials without a base of x are not
+ * evaluated properly.</b>
  */
 public class Differentiator implements Evaluator {
     /**
@@ -54,7 +54,7 @@ public class Differentiator implements Evaluator {
      */
     private static boolean canBeSimplified(ExpressionElement expression) {
         String representation = expression.interpret();
-        if (representation.matches("[ ()0-9a-zA-Z*+]+")) {
+        if (representation.matches("[ ()0-9a-zA-Z*+.]+")) {
             return true;
         }
         return false;

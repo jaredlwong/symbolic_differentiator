@@ -5,12 +5,15 @@ import java.math.BigDecimal;
 import differentiator.parse.Token;
 import differentiator.type.Type;
 
+/**
+ * The Class NumberExpression represents a number.
+ */
 public class NumberExpression extends ExpressionElement {
     private final BigDecimal value;
 
     /**
-     * 
-     * @param token
+     * Instantiates a new NumberExpression.
+     * @param token A token representing a number.
      * @throws NumberFormatException if token is not valid number.
      */
     public NumberExpression(Token token) {
@@ -19,6 +22,9 @@ public class NumberExpression extends ExpressionElement {
         value = new BigDecimal(token.getValue());
     }
 
+    /**
+     * @return The numerical value that this NumberExpression represents.
+     */
     public BigDecimal getValue() {
         return value;
     }
@@ -27,16 +33,14 @@ public class NumberExpression extends ExpressionElement {
         return eev.visit(this);
     }
 
-    @Override
-    public String toString() {
-        return "Number: " + value;
-    }
-
-    @Override
     public String interpret() {
         if (value.compareTo(BigDecimal.valueOf(0)) < 0) {
             return "(" + value.toString() + ")";
         }
         return value.toString();
+    }
+
+    public String toString() {
+        return "Number: " + value;
     }
 }

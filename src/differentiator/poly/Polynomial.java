@@ -8,23 +8,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * The Class Polynomial defines a Polynomial.
+ */
 public class Polynomial {
+
+    /** The terms of the polynomial as represented by a List of
+     * PolynomialTerms.
+     */
     private final List<PolynomialTerm> terms;
 
+    /**
+     * Instantiates a new polynomial from a single PolynomialTerm.
+     * @param term The initial term of this polynomial.
+     */
     public Polynomial(PolynomialTerm term) {
         terms = new ArrayList<PolynomialTerm>(1);
         terms.add(term);
     }
 
+    /**
+     * Instantiates a new polynomial from a list of PolynomialTerms.
+     * @param terms The initial terms of this polynomial.
+     */
     public Polynomial(List<PolynomialTerm> terms) {
         // shallow copy okay b/c polynomial terms are immutable
         this.terms = new ArrayList<PolynomialTerm>(terms);
     }
 
+    /**
+     * Gets the terms.
+     * @return the terms
+     */
     public List<PolynomialTerm> getTerms() {
-        return terms;
+        return new ArrayList<PolynomialTerm>(terms);
     }
 
+    /**
+     * Return a new poynomial represented the simplified version of this
+     * Polynomial.
+     * @param poly The polynomial to simplify.
+     * @return The simplified Polynomial.
+     */
     public static Polynomial simplify(Polynomial poly) {
         Map<Map<String, Integer>, BigDecimal> newTerms =
                 new HashMap<Map<String, Integer>, BigDecimal>();
@@ -47,21 +72,14 @@ public class Polynomial {
         return new Polynomial(newTermList);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        Iterator<PolynomialTerm> polyTermIter = terms.iterator();
-        res.append(polyTermIter.next().toString());
-        while (polyTermIter.hasNext()) {
-            String nextTerm = polyTermIter.next().toString();
-            if (!nextTerm.equals("")) {
-                res.append("+");
-                res.append(nextTerm);
-            }
-        }
-        return res.toString();
-    }
 
+
+    /**
+     * Add two polynomials and return the sum.
+     * @param one the one
+     * @param two the two
+     * @return the polynomial
+     */
     public static Polynomial sum(Polynomial one, Polynomial two) {
         List<PolynomialTerm> sum =
                 new ArrayList<PolynomialTerm>(
@@ -72,6 +90,12 @@ public class Polynomial {
         return new Polynomial(sum);
     }
 
+    /**
+     * Multiply two polynomials and return their product.
+     * @param one the one
+     * @param two the two
+     * @return the polynomial
+     */
     public static Polynomial multiply(Polynomial one, Polynomial two) {
         List<PolynomialTerm> product =
                 new ArrayList<PolynomialTerm>(
@@ -84,5 +108,19 @@ public class Polynomial {
         }
 
         return new Polynomial(product);
+    }
+
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        Iterator<PolynomialTerm> polyTermIter = terms.iterator();
+        res.append(polyTermIter.next().toString());
+        while (polyTermIter.hasNext()) {
+            String nextTerm = polyTermIter.next().toString();
+            if (!nextTerm.equals("")) {
+                res.append("+");
+                res.append(nextTerm);
+            }
+        }
+        return res.toString();
     }
 }

@@ -94,13 +94,6 @@ public abstract class ExpressionElement implements
     }
 
     /**
-     * Each extending class should implement a toString method that prints
-     * out the name of the Expression type, or equivalent.
-     */
-    @Override
-    public abstract String toString();
-
-    /**
      * Every ExpressionElement should be able to accept an
      * ExpressionEvaluationVisitor.
      * 
@@ -123,4 +116,11 @@ public abstract class ExpressionElement implements
      * ExpressionElement.
      */
     public abstract String interpret();
+
+    /**
+     * Each extending class should implement a toString method that prints
+     * out the name of the Expression type, or equivalent.
+     */
+    @Override
+    public abstract String toString();
 }

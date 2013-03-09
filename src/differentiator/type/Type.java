@@ -1,12 +1,12 @@
 package differentiator.type;
 
-// TODO: Auto-generated Javadoc
 /**
  * All the types of tokens that can be made.
  */
 public enum Type {
-    // The precedence ordering is partially based on ideas from
-    // "The Dragon Book"
+    /* The precedence ordering is partially based on ideas from
+     * "The Dragon Book"
+     */
     // operators
     PLUS("+",  2, 1),
     MINUS("-", 2, 1),
@@ -38,7 +38,6 @@ public enum Type {
 
     /**
      * Instantiates a new type.
-     *
      * @param rep the rep
      * @param leftPrecedence the left precedence
      * @param rightPrecedence the right precedence
@@ -52,7 +51,6 @@ public enum Type {
     /**
      * Compares the left precedence of this object's type to the right
      * precedence of another object's type.
-     *
      * @param t the t
      * @return the int
      */
@@ -61,8 +59,7 @@ public enum Type {
     }
 
     /**
-     * Gets the left precedence.
-     *
+     * Gets the left precedence of this Type.
      * @return the left precedence
      */
     public int getLeftPrecedence() {
@@ -70,8 +67,7 @@ public enum Type {
     }
 
     /**
-     * Gets the right precedence.
-     *
+     * Gets the right precedence of this Type.
      * @return the right precedence
      */
     public int getRightPrecedence() {
@@ -79,8 +75,7 @@ public enum Type {
     }
 
     /**
-     * Checks if is variable.
-     *
+     * Checks if this Type is a variable.
      * @return true, if is variable
      */
     public boolean isVariable() {
@@ -88,8 +83,7 @@ public enum Type {
     }
 
     /**
-     * Checks if is operator.
-     *
+     * Checks if this Type is an operator.
      * @return true, if is operator
      */
     public boolean isOperator() {
@@ -100,9 +94,6 @@ public enum Type {
                 this == CARET;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Enum#toString()
-     */
     @Override
     public String toString() {
         return rep;

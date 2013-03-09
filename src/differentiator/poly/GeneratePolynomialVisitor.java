@@ -9,50 +9,46 @@ import differentiator.ast.ProductExpression;
 import differentiator.ast.QuotientExpression;
 import differentiator.ast.SumExpression;
 
-public class GeneratePolynomialVisitor implements ExpressionEvaluationVisitor<Polynomial> {
+/**
+ * The GeneratePolynomialVisitor class defines a visitor on ElementExpressions.
+ * It creates a Polynomial from an expression composed of numbers, variables,
+ * +, and *.
+ */
+public class GeneratePolynomialVisitor implements
+        ExpressionEvaluationVisitor<Polynomial> {
 
-    @Override
     public Polynomial visit(NumberExpression expression) {
         PolynomialTerm x = new PolynomialTerm(expression.getValue());
         return new Polynomial(x);
     }
 
-    @Override
     public Polynomial visit(IdentifierExpression expression) {
         PolynomialTerm x = new PolynomialTerm(expression.getValue());
         return new Polynomial(x);
     }
 
-    @Override
     public Polynomial visit(SumExpression expression) {
         return Polynomial.sum(
                     expression.getLeft().accept(this),
                     expression.getRight().accept(this));
     }
 
-    @Override
     public Polynomial visit(ProductExpression expression) {
         return Polynomial.multiply(
                     expression.getLeft().accept(this),
                     expression.getRight().accept(this));
     }
 
-    @Override
     public Polynomial visit(DifferenceExpression expression) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
-    @Override
     public Polynomial visit(QuotientExpression expression) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
-    @Override
     public Polynomial visit(ExponentialExpression expression) {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
 }

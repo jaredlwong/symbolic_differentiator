@@ -5,6 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * The PolynomialTerm class represents a term of a polynomial. More explicitly
+ * it represents a term of the form
+ * A * B ^ C
+ * where A is a real number. B is a variable identifier of the form [a-zA-Z]+.
+ * And C is a non-negative integer.
+ */
 public class PolynomialTerm {
 
     private BigDecimal coefficient;
@@ -58,6 +65,12 @@ public class PolynomialTerm {
         }
     }
 
+    /**
+     * Multiply two PolynomialTerms and return their product
+     * @param one The first PolynomialTerm
+     * @param two The second PolynomialTerm
+     * @return The product of the two PolynomialTerms.
+     */
     public static PolynomialTerm multiply(
             PolynomialTerm one, PolynomialTerm two) {
         // Shallow copy okay because String, Integer both immutable
@@ -76,10 +89,16 @@ public class PolynomialTerm {
         return new PolynomialTerm(newCoeff, newVariables);
     }
 
+    /**
+     * @return The variables of this PolynomialTerm.
+     */
     public Map<String, Integer> getVariables() {
         return new HashMap<String, Integer>(variables);
     }
 
+    /**
+     * @return The coefficient of this PolynomialTerm.
+     */
     public BigDecimal getCoefficient() {
         return coefficient;
     }

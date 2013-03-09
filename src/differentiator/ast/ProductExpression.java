@@ -2,8 +2,15 @@ package differentiator.ast;
 
 import differentiator.type.Type;
 
+/**
+ * The Class ProductExpression represents the product of two other
+ * expressions.
+ */
 public class ProductExpression extends ExpressionElement {
 
+    /**
+     * Instantiates a new quotient expression.
+     */
     public ProductExpression() {
         super(Type.STAR);
     }
@@ -12,12 +19,6 @@ public class ProductExpression extends ExpressionElement {
         return eev.visit(this);
     }
 
-    @Override
-    public String toString() {
-        return "Product";
-    }
-
-    @Override
     public String interpret() {
         StringBuilder result = new StringBuilder();
         result.append("(");
@@ -26,5 +27,9 @@ public class ProductExpression extends ExpressionElement {
         result.append(this.getRight().interpret());
         result.append(")");
         return result.toString();
+    }
+
+    public String toString() {
+        return "Product";
     }
 }

@@ -1,8 +1,8 @@
 package differentiator.parse;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import differentiator.error.InvalidTokenException;
 import differentiator.type.Type;
@@ -33,20 +33,20 @@ public class Token {
     /**
      * A map from regex patterns to types.
      */
-    private static final Map<String, Type> REGEX_PATTERNS =
-            new HashMap<String, Type>();
+    private static final Map<Type, String> REGEX_PATTERNS =
+            new EnumMap<Type, String>(Type.class);
 
     static {
-        REGEX_PATTERNS.put("\\+", Type.PLUS);
-        REGEX_PATTERNS.put("-", Type.MINUS);
-        REGEX_PATTERNS.put("\\*", Type.STAR);
-        REGEX_PATTERNS.put("/", Type.SLASH);
-        REGEX_PATTERNS.put("\\^", Type.CARET);
-        REGEX_PATTERNS.put("\\(", Type.LPAR);
-        REGEX_PATTERNS.put("\\)", Type.RPAR);
-        REGEX_PATTERNS.put("\\$", Type.TERMINAL);
-        REGEX_PATTERNS.put("-?[0-9]*\\.[0-9]+|-?[0-9]+(\\.[0-9]*)?", Type.NUMBER);
-        REGEX_PATTERNS.put("[a-zA-Z]+", Type.IDENTIFIER);
+        REGEX_PATTERNS.put(Type.PLUS, "\\+");
+        REGEX_PATTERNS.put(Type.MINUS, "-");
+        REGEX_PATTERNS.put(Type.STAR, "\\*");
+        REGEX_PATTERNS.put(Type.SLASH, "/");
+        REGEX_PATTERNS.put(Type.CARET, "\\^");
+        REGEX_PATTERNS.put(Type.LPAR, "\\(");
+        REGEX_PATTERNS.put(Type.RPAR, "\\)");
+        REGEX_PATTERNS.put(Type.TERMINAL, "\\$");
+        REGEX_PATTERNS.put(Type.NUMBER, "-?[0-9]*\\.[0-9]+|-?[0-9]+(\\.[0-9]*)?");
+        REGEX_PATTERNS.put(Type.IDENTIFIER, "[a-zA-Z]+");
     }
 
     /** The type of the Token */
@@ -99,9 +99,9 @@ public class Token {
      *          token not recognized.
      */
     private static Type getType(String token) {
-        for (String pattern : REGEX_PATTERNS.keySet()) {
-            if (token.matches(pattern)) {
-                return REGEX_PATTERNS.get(pattern);
+        for (Entry<Type, String> pattern : REGEX_PATTERNS.entrySet()) {
+            if (token.matches(pattern.getValue())) {
+                return pattern.getKey();
             }
         }
         throw new InvalidTokenException("Invalid Token: " + token);

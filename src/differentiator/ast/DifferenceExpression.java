@@ -2,7 +2,15 @@ package differentiator.ast;
 
 import differentiator.type.Type;
 
+/**
+ * The Class DifferenceExpression represents the product of two other
+ * expressions.
+ */
 public class DifferenceExpression extends ExpressionElement {
+
+    /**
+     * Instantiates a new difference expression.
+     */
     public DifferenceExpression() {
         super(Type.MINUS);
     }
@@ -11,12 +19,6 @@ public class DifferenceExpression extends ExpressionElement {
         return eev.visit(this);
     }
 
-    @Override
-    public String toString() {
-        return "Difference";
-    }
-
-    @Override
     public String interpret() {
         StringBuilder result = new StringBuilder();
         result.append("(");
@@ -25,5 +27,9 @@ public class DifferenceExpression extends ExpressionElement {
         result.append(this.getRight().interpret());
         result.append(")");
         return result.toString();
+    }
+
+    public String toString() {
+        return "Difference";
     }
 }
