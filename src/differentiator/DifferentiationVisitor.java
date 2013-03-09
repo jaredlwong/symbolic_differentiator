@@ -28,8 +28,7 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
 
     /**
      * Instantiates a new differentiation visitor.
-     *
-     * @param variable the variable
+     * @param variable the variable to differentiate on.
      */
     public DifferentiationVisitor(String variable) {
         this.variable = variable;
@@ -38,7 +37,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
 
     /**
      * Gets the derivative.
-     *
      * @return the derivative
      */
     public ExpressionElement getDerivative() {
@@ -174,6 +172,9 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * This method defines differentiation of an exponential. It does
      * the transformation:
      * A ^ B -> B * A ^ (B-1)
+     * 
+     * NOTE: It does not differentiate properly unless A === variable that
+     * this DifferentiationVisitor is taking the derivative of.
      */
     @Override
     public Void visit(ExponentialExpression expression) {

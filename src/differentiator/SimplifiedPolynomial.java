@@ -1,55 +1,29 @@
 package differentiator;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import differentiator.ast.ExpressionElement;
-import differentiator.parse.Lexer;
-import differentiator.parse.Parser;
+import differentiator.poly.GeneratePolynomialVisitor;
+import differentiator.poly.Polynomial;
 
-public class SimplifiedPolynomial {
-    private final static Lexer lexer = Lexer.INSTANCE;
-    private final static Parser parser = Parser.INSTANCE;
+/**
+ * The Class SimplifiedPolynomial has a single method, getInstance that
+ * returns an instance of a Polynomial that is simplified.
+ * 
+ * NOTE: ideally this would not be a class in and of itself, but it had to
+ * be included for some reason.
+ */
+public final class SimplifiedPolynomial {
 
-    public static String evaluate(String expression) {
-        lexer.setInput(expression);
-
-        parser.setLexer(lexer);
-        ExpressionElement input = parser.getParseTree();
-
-        Polynomial polynomialRepresentation =
-                input.accept(new GeneratePolynomialVisitor());
-        Polynomial simplifiedExpression =
-                Polynomial.simplify(polynomialRepresentation);
-
-        return simplifiedExpression.toString();
-    }
-    
     /**
-     * Repeatedly reads expressions from the console, and outputs the results of
-     * evaluating them. Inputting an empty line will terminate the program.
-     * @param args unused
+     * Gets an instance of Polynomial that is simplified.
+     *
+     * @param abstractSyntaxTree the abstract syntax tree in the form of an
+     * ExpressionElement
+     * @return A simplified polynomial representation of the abstract syntax
+     * tree
      */
-    public static void main(String[] args) throws IOException {
-        String result;
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String expression;
-        do {
-            // display prompt
-            System.out.print("$ ");
-            // read input
-            expression = in.readLine();
-            // terminate if input empty
-            if (!expression.equals("")) {
-                try {
-                    result = SimplifiedPolynomial.evaluate(expression);
-                    System.out.println(result);
-                } catch (RuntimeException re) {
-                    System.err.println("Error: " + re.getMessage());
-                }
-            }
-        } while (!expression.equals(""));
+    public static Polynomial getInstance(ExpressionElement abstractSyntaxTree) {
+        Polynomial representation =
+                abstractSyntaxTree.accept(new GeneratePolynomialVisitor());
+        return Polynomial.simplify(representation);
     }
 }
