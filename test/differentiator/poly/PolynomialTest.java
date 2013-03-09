@@ -1,9 +1,5 @@
 package differentiator.poly;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

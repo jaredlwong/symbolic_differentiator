@@ -1,10 +1,6 @@
 package differentiator.poly;
 
-import static org.junit.Assert.*;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -15,17 +11,17 @@ public class PolynomialTermTest {
         PolynomialTerm a = new PolynomialTerm(100, "a", "a", "c");
         PolynomialTerm b = new PolynomialTerm(2, "a", "a", "c");
         PolynomialTerm ab = PolynomialTerm.multiply(a, b);
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(ab);
-        System.out.println(a.getVariables().hashCode());
-        System.out.println(b.getVariables().hashCode());
+        String expectA = "100*c*a^2";
+        String expectB = "2*c*a^2";
+        String expectAB = "200*c^2*a^4";
+        assertEquals(expectA, a.toString());
+        assertEquals(expectB, b.toString());
+        assertEquals(expectAB, ab.toString());
     }
 
     @Test
     public void oneTest() {
         PolynomialTerm one = new PolynomialTerm(1, "a");
-        System.out.println(one);
-        System.out.println(one.getVariables().size());
+        assertEquals("a", one.toString());
     }
 }

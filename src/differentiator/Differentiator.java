@@ -54,7 +54,7 @@ public class Differentiator implements Evaluator {
      */
     private static boolean canBeSimplified(ExpressionElement expression) {
         String representation = expression.interpret();
-        if (representation.matches("[ ()0-9a-zA-Z*+.]+")) {
+        if (representation.matches("[ ()0-9a-zA-Z*+.\\-]+")) {
             return true;
         }
         return false;
