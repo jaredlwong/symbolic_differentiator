@@ -35,7 +35,9 @@ public class NumberExpression extends ExpressionElement {
 
     public String interpret() {
         if (value.compareTo(BigDecimal.valueOf(0)) < 0) {
-            return "(" + value.toString() + ")";
+            return "(" + 
+                    value.stripTrailingZeros().toPlainString()
+                    + ")";
         }
         return value.toString();
     }

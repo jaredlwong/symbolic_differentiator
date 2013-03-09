@@ -111,7 +111,7 @@ public class PolynomialTerm {
         }
         if (coefficient.compareTo(BigDecimal.valueOf(1)) != 0 ||
                 variables.size() == 0) {
-            res.append(coefficient.stripTrailingZeros());
+            res.append(coefficient.stripTrailingZeros().toPlainString());
         }
         for (Entry<String, Integer> varItem : variables.entrySet()) {
             if (res.length() > 0) {
