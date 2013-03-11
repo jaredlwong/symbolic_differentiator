@@ -1,0 +1,688 @@
+
+<html>
+  <style TYPE="text/css">
+     body {
+       background: white;
+       color: #383838;
+       font-family:"Lucida Grande";
+     }
+     div.rawOutput {
+       border: .1em dotted #900;
+     }
+     div.content {
+       width: 800px
+     }
+     div.testResult {
+       text-align: center;
+       font-weight: bold;
+     }
+     div.points {
+       text-align: center;
+       font-weight: bold;
+     }
+     div.testName {
+       font-weight: bold;
+     }
+     p {
+       font-weight: bold;
+     }
+     td {
+     }
+     pre {
+       font-size: 80%;
+       margin-left: 30px;
+     }
+     hr {
+       background-color: #808080
+     }
+  </style>
+  <body>
+    <div class="content">
+    <div class="filler" style="height: 20px"></div>
+      <h2><div><p>Grade: 100 / 100</p><div></h2>
+      
+<br><p>Checking your differentiator against good and bad input.</p>
+<div class="rawOutput"><pre>Buildfile: /Users/oremanj/6.005-ps2/jaredw/build.xml
+
+clean:
+
+compile-empty:
+    [mkdir] Created dir: /Users/oremanj/6.005-ps2/jaredw/bin-empty
+    [javac] Compiling 3 source files to /Users/oremanj/6.005-ps2/jaredw/bin-empty
+
+compile-staff:
+    [mkdir] Created dir: /Users/oremanj/6.005-ps2/jaredw/bin-tests
+    [javac] Compiling 9 source files to /Users/oremanj/6.005-ps2/jaredw/bin-tests
+
+compile-student:
+    [mkdir] Created dir: /Users/oremanj/6.005-ps2/jaredw/bin
+     [copy] Copying 1 file to /Users/oremanj/6.005-ps2/jaredw/src/differentiator
+     [copy] Copying /Users/oremanj/6.005-ps2/jaredw/grader-proj/empty-
+src/differentiator/Evaluator.java to
+/Users/oremanj/6.005-ps2/jaredw/src/differentiator/Evaluator.java
+    [javac] Compiling 11 source files to /Users/oremanj/6.005-ps2/jaredw/bin
+
+compile:
+
+test-clean:
+
+autograder:
+    [junit] Testsuite: differentiator.InterfaceTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.049 sec
+    [junit]
+    [junit] Testcase: testEvaluate took 0.033 sec
+    [junit] Testsuite: grader.HiddenGoodTests
+    [junit] Tests run: 51, Failures: 0, Errors: 0, Time elapsed: 0.363 sec
+    [junit]
+    [junit] Testcase: test0_dx took 0.029 sec
+    [junit] Testcase: test1_dx took 0.002 sec
+    [junit] Testcase: test0_1_dx took 0.002 sec
+    [junit] Testcase: test0_0001_dx took 0.002 sec
+    [junit] Testcase: test1_0_dx took 0.002 sec
+    [junit] Testcase: test1_0000_dx took 0.002 sec
+    [junit] Testcase: testX_dx took 0.003 sec
+    [junit] Testcase: testCapX_dx took 0.001 sec
+    [junit] Testcase: testY_dx took 0.002 sec
+    [junit] Testcase: testCapY_dx took 0.002 sec
+    [junit] Testcase: testLongVariable_dx took 0.003 sec
+    [junit] Testcase: testx_dy took 0.001 sec
+    [junit] Testcase: testy_dy took 0.001 sec
+    [junit] Testcase: testY_dy took 0.001 sec
+    [junit] Testcase: testLongVariable_dLongVariable took 0.002 sec
+    [junit] Testcase: testXParens_dx took 0.001 sec
+    [junit] Testcase: testXManyParens_dx took 0.003 sec
+    [junit] Testcase: test2X_dx took 0.003 sec
+    [junit] Testcase: test2XParens_dx took 0.006 sec
+    [junit] Testcase: testX2_dx took 0.01 sec
+    [junit] Testcase: testX2Parens_dx took 0.006 sec
+    [junit] Testcase: testLeftRightX3_dx took 0.004 sec
+    [junit] Testcase: testRightLeftX3_dx took 0.004 sec
+    [junit] Testcase: testEvenX4_dx took 0.007 sec
+    [junit] Testcase: testX4Even_dx took 0.004 sec
+    [junit] Testcase: testX8_dx took 0.012 sec
+    [junit] Testcase: testAddInts_dx took 0.004 sec
+    [junit] Testcase: testMultiplyInts_dx took 0.005 sec
+    [junit] Testcase: testIntArithmetic_dx took 0.011 sec
+    [junit] Testcase: testAddFloats_dx took 0.005 sec
+    [junit] Testcase: testMultiplyFloats_dx took 0.007 sec
+    [junit] Testcase: testFloatArithmetic_dx took 0.008 sec
+    [junit] Testcase: testAddition_dx took 0.004 sec
+    [junit] Testcase: testMultplication_dx took 0.014 sec
+    [junit] Testcase: testArithmetic_dx took 0.007 sec
+    [junit] Testcase: testSymbolicArithmetic_dx took 0.004 sec
+    [junit] Testcase: testLeftHeavyGrouping_dx took 0.007 sec
+    [junit] Testcase: testCenterHeavyGrouping_dx took 0.007 sec
+    [junit] Testcase: testRightHeavyGrouping_dx took 0.006 sec
+    [junit] Testcase: testBalancedGrouping_dx took 0.01 sec
+    [junit] Testcase: testComplexEquation1_dx took 0.007 sec
+    [junit] Testcase: testComplexEquation1_dy took 0.008 sec
+    [junit] Testcase: testComplexEquation1_dz took 0.009 sec
+    [junit] Testcase: testComplexEquation2_dx took 0.011 sec
+    [junit] Testcase: testComplexEquation2_dy took 0.01 sec
+    [junit] Testcase: testComplexEquation2_dz took 0.006 sec
+    [junit] Testcase: testComplexEquation3_dx took 0.007 sec
+    [junit] Testcase: testComplexEquation3_dy took 0.005 sec
+    [junit] Testcase: testComplexEquation3_dz took 0.005 sec
+    [junit] Testcase: testComplexEquation3_dLongVariable1 took 0.006 sec
+    [junit] Testcase: testComplexEquation3_dLongVariable2 took 0.009 sec
+    [junit] Testsuite: grader.HiddenBadTests
+    [junit] Tests run: 34, Failures: 0, Errors: 0, Time elapsed: 0.142 sec
+    [junit]
+    [junit] Testcase: testMissingOperandInt_dx took 0.031 sec
+    [junit] Testcase: testMissingIntOperand_dx took 0.001 sec
+    [junit] Testcase: testMissingOperandFloat_dx took 0.003 sec
+    [junit] Testcase: testMissingOperandVars_dx took 0.002 sec
+    [junit] Testcase: testMissingOperandParens_dx took 0.005 sec
+    [junit] Testcase: testExtraLParen_dx took 0.003 sec
+    [junit] Testcase: testExtraRParen_dx took 0.002 sec
+    [junit] Testcase: testEmptyString_dx took 0 sec
+    [junit] Testcase: testEmptyParens_dx took 0.002 sec
+    [junit] Testcase: testManyEmptyParens_dx took 0.003 sec
+    [junit] Testcase: testSingleLParen_dx took 0.001 sec
+    [junit] Testcase: testSingleRParen_dx took 0.001 sec
+    [junit] Testcase: testSingleTimes_dx took 0.001 sec
+    [junit] Testcase: testSinglePlus_dx took 0.001 sec
+    [junit] Testcase: testSingleParendTimes_dx took 0.001 sec
+    [junit] Testcase: testSingleParendPlus_dx took 0.001 sec
+    [junit] Testcase: testLeadingParendVariable_dx took 0.003 sec
+    [junit] Testcase: testTrailingParendVariable_dx took 0.002 sec
+    [junit] Testcase: testLeadingParendPlus_dx took 0.003 sec
+    [junit] Testcase: testTrailingParendPlus_dx took 0.003 sec
+    [junit] Testcase: testLeadingParendTimes_dx took 0.003 sec
+    [junit] Testcase: testTrailingParendTimes_dx took 0.003 sec
+    [junit] Testcase: testTrailingVariable_dx took 0.002 sec
+    [junit] Testcase: testTrailingPlus_dx took 0.003 sec
+    [junit] Testcase: testTrailingTimes_dx took 0.003 sec
+    [junit] Testcase: testLeadingVariable_dy took 0.001 sec
+    [junit] Testcase: testTrailingVariable_dy took 0.002 sec
+    [junit] Testcase: testLeadingPlus_dy took 0 sec
+    [junit] Testcase: testTrailingPlus_dy took 0.002 sec
+    [junit] Testcase: testLeadingTimes_dy took 0.001 sec
+    [junit] Testcase: testTrailingTimes_dy took 0.002 sec
+    [junit] Testcase: testBang_dx took 0 sec
+    [junit] Testcase: testDollar_dx took 0 sec
+    [junit] Testcase: testPound_dx took 0 sec
+
+BUILD SUCCESSFUL
+Total time: 11 seconds
+</pre></div>
+<br><table width="800px">
+<tr>
+<td style="width:50px"><div class="points">15/15</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testEvaluate</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test0_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test1_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test0_1_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test0_0001_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test1_0_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test1_0000_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testX_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testCapX_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testY_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testCapY_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLongVariable_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testx_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testy_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testY_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLongVariable_dLongVariable</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testXParens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testXManyParens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test2X_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">test2XParens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testX2_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testX2Parens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeftRightX3_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testRightLeftX3_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testEvenX4_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testX4Even_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testX8_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testAddInts_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMultiplyInts_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testIntArithmetic_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testAddFloats_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMultiplyFloats_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testFloatArithmetic_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testAddition_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMultplication_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testArithmetic_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSymbolicArithmetic_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeftHeavyGrouping_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testCenterHeavyGrouping_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testRightHeavyGrouping_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testBalancedGrouping_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation1_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation1_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation1_dz</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation2_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation2_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation2_dz</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation3_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation3_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation3_dz</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation3_dLongVariable1</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testComplexEquation3_dLongVariable2</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMissingOperandInt_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMissingIntOperand_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMissingOperandFloat_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMissingOperandVars_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testMissingOperandParens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testExtraLParen_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testExtraRParen_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testEmptyString_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testEmptyParens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testManyEmptyParens_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSingleLParen_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSingleRParen_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSingleTimes_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSinglePlus_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSingleParendTimes_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testSingleParendPlus_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeadingParendVariable_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingParendVariable_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeadingParendPlus_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingParendPlus_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeadingParendTimes_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingParendTimes_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingVariable_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingPlus_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingTimes_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeadingVariable_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingVariable_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeadingPlus_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingPlus_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testLeadingTimes_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testTrailingTimes_dy</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testBang_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testDollar_dx</div></td>
+</tr>
+
+<tr>
+<td style="width:50px"><div class="points">1/1</div></td>
+<td style="width:50px"><div class="testResult">PASS</div></td>
+<td style="width:700px"><div class="testName">testPound_dx</div></td>
+</tr></table>
+<br><hr style="background-color: #808080">
+    </div>
+  </body>
+</html>
