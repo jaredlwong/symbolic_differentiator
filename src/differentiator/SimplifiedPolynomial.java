@@ -10,6 +10,9 @@ import differentiator.poly.Polynomial;
  * 
  * NOTE: ideally this would not be a class in and of itself, but it had to
  * be included for some reason.
+ * 
+ * I could have made a visitor that actually simplified the abstract syntax
+ * tree itself. I couldn't fully define an algorithm in time, so I ditched it.
  */
 public final class SimplifiedPolynomial {
 

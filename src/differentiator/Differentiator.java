@@ -116,12 +116,12 @@ public class Differentiator implements Evaluator {
                     } else {
                         StringBuilder simplification = new StringBuilder();
                         simplification.append(expression.interpret());
-                        simplification.append(" = ");
+                        simplification.append("\n= ");
                         simplification.append(
                                 SimplifiedPolynomial.getInstance(expression));
                         simplification.append("\n");
                         simplification.append(derivative.interpret());
-                        simplification.append(" = ");
+                        simplification.append("\n= ");
                         simplification.append(
                                 SimplifiedPolynomial.getInstance(derivative));
                         System.out.println(simplification);

@@ -67,7 +67,8 @@ public class Polynomial {
                 new ArrayList<PolynomialTerm>(newTerms.size());
         for (Entry<Map<String, Integer>, BigDecimal> term :
                 newTerms.entrySet()) {
-            newTermList.add(new PolynomialTerm(term.getValue(), term.getKey()));
+            newTermList.add(
+                    new PolynomialTerm(term.getValue(), term.getKey()));
         }
         return new Polynomial(newTermList);
     }
@@ -128,6 +129,7 @@ public class Polynomial {
         if (res.charAt(res.length()-1) == '+') {
             res.deleteCharAt(res.length()-1);
         }
-        return res.toString();
+        String noSpaced = res.toString();
+        return noSpaced.replaceAll("\\+"," + ");
     }
 }
