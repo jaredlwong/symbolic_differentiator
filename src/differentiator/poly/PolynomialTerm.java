@@ -14,6 +14,39 @@ import java.util.Map.Entry;
  */
 public class PolynomialTerm {
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((coefficient == null) ? 0 : coefficient.hashCode());
+        result = prime * result
+                + ((variables == null) ? 0 : variables.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PolynomialTerm other = (PolynomialTerm) obj;
+        if (coefficient == null) {
+            if (other.coefficient != null)
+                return false;
+        } else if (!coefficient.equals(other.coefficient))
+            return false;
+        if (variables == null) {
+            if (other.variables != null)
+                return false;
+        } else if (!variables.equals(other.variables))
+            return false;
+        return true;
+    }
+
     private BigDecimal coefficient;
     private Map<String, Integer> variables;
 

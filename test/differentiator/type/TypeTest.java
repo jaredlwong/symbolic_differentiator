@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class TypeTest {
-
-    /** Simple test to ensure operator precedence is working. */
+    /**
+     * Make sure operator precedence is working. Specifically that the
+     * Terminal type is always less than another terminal or right parenthesis.
+     */
     @Test
     public void basicTest() {
         for (Type t : Type.values()) {
