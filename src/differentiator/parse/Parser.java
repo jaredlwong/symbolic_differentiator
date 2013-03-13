@@ -12,22 +12,23 @@ import differentiator.type.Type;
  * expression was written by the user. This parser is an implementation
  * of an operator precedence parser as described in "The Dragon Book"
  */
-public enum Parser {
-    INSTANCE;
+public class Parser {
 
-    private Token[] tokens;
-
-    public void setTokens(Token ... _tokens) {
-        tokens = _tokens;
+    private Parser() {
+        // This is a static class
     }
 
     /**
      * This method generates an ExpressionElement node that represents the
      * parse tree from the tokens in the lexer. It determines the order in
      * which to parse expressions based on operator-precedence parsing.
-     * @return
+     * @param An array of tokens, must be well formed expression. Must start
+     * with a terminal element, end with a terminal element, and every
+     * other token must be in a proper mathematical expression.
+     * @return a parse tree representing the expression enumrated by the
+     * tokens.
      */
-    public ExpressionElement getParseTree() {
+    public static ExpressionElement getParseTree(Token ... tokens) {
         // Convert tokens to ase representation
         ExpressionElement elements[] =
                 new ExpressionElement[tokens.length];
@@ -35,7 +36,7 @@ public enum Parser {
             elements[i] = ExpressionElementFactory.getInstance(tokens[i]);
         }
 
-        ParserStack stack = ParserStack.INSTANCE;
+        ParserStack stack = new ParserStack();
         int elementIndex = 0;
         stack.push(elements[elementIndex++]);
         ExpressionElement nextElement = elements[elementIndex];
@@ -81,7 +82,8 @@ public enum Parser {
         if (!stack.peek().isTerminal()) {
             return stack.pop();
         }
-        return null;
+        throw new IllegalArgumentException("Malformed input, tokens did not"
+                + " start or end with a terminal.");
     }
 
     /**

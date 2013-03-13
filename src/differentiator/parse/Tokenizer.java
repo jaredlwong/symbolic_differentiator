@@ -11,9 +11,7 @@ import java.util.NoSuchElementException;
  * 
  * Note: No negative numbers are produced.
  */
-public enum Tokenizer implements Iterator<String> {
-    /** Make sure only one instance of Tokenizer is ever created. */
-    INSTANCE;
+public class Tokenizer implements Iterator<String> {
 
     /** This enum is used to help the tokenizer tell when to continue parsing
      * the next character from the input. It does not determine what Token the
@@ -43,13 +41,14 @@ public enum Tokenizer implements Iterator<String> {
     }
 
     /** Keep the current list of tokens generated from the input. */
-    private String input;
+    private final String input;
     private int position;
 
-    /** Generate the tokens given a new input string.
+    /** 
+     * Generate the tokens given a new input string.
      * @param input The String to be tokenized.
      */
-    public void setInput(String _input) {
+    public Tokenizer(String _input) {
         input = _input;
         position = 0;
         // Increase position to first token that isn't whitespace.

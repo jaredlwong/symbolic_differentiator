@@ -4,7 +4,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import differentiator.error.InvalidTokenException;
 import differentiator.type.Type;
 
 /**
@@ -104,7 +103,7 @@ public class Token {
                 return pattern.getKey();
             }
         }
-        throw new InvalidTokenException("Invalid Token: " + token);
+        throw new IllegalArgumentException("Invalid Token: " + token);
     }
 
     /** 

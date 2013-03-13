@@ -11,10 +11,7 @@ import differentiator.ast.ExpressionElement;
  * which hasn't yet been simplified. Thus, they are very important when trying
  * to track when to reduce an expression.
  */
-public enum ParserStack {
-
-    /** The instance. */
-    INSTANCE;
+public class ParserStack {
 
     /** The Constant stack. */
     private static final Stack<ExpressionElement> stack =

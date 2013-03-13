@@ -1,6 +1,5 @@
 package differentiator.parse;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,30 +7,23 @@ import differentiator.type.Type;
 
 /**
  * A lexer takes a string and splits it into tokens that are meaningful to a
- * parser.
+ * parser. This isn't a static class because 
  */
-public enum Lexer implements Iterable<Token> {
-    /** Make sure only one instance of Lexer is ever created. */
-    INSTANCE;
-
-    /** Save away the Tokenizer in a convenient class variable */
-    private final static Tokenizer tokenizer = Tokenizer.INSTANCE;
-
-    /** Saves away the current list of tokens generated from the input. */
-    private List<Token> tokens;
-
-    /** Generate the tokens given a new input string.
-     * @param input The String to be tokenized.
-     */
-    public void setInput(String input) {
-        tokenizer.setInput(input);
-        tokens = getTokensFromTokenizer();
+public class Lexer {
+    private Lexer() {
+        // This is a static class
     }
 
-    /** This an accessor method that returns a copy of the List tokens in an
+    /** 
+     * This an accessor method that returns a copy of the List tokens in an
      * array form (intended to avoid the underlying list to be exposed).
+     * <br>
+     * Note: this returns an array because the input should be fully processed
+     * by this step of our parser/compiler.
      * @return The array of tokens for the current input */
-    public Token[] getTokens() {
+    public static Token[] getTokens(String input) {
+        Tokenizer tokenizer = new Tokenizer(input);
+        List<Token> tokens = getTokensFromTokenizer(tokenizer);
         return tokens.toArray(new Token[tokens.size()]);
     }
 
@@ -44,7 +36,7 @@ public enum Lexer implements Iterable<Token> {
      * 
      * @return A list of Tokens representing the input
      */
-    private List<Token> getTokensFromTokenizer() {
+    private static List<Token> getTokensFromTokenizer(Tokenizer tokenizer) {
         List<Token> parsedTokens = new LinkedList<Token>();
         tokenizer.reset();
         Token lastToken = null;
@@ -103,13 +95,5 @@ public enum Lexer implements Iterable<Token> {
             parsedTokens.add(token);
         }
         return parsedTokens;
-    }
-
-    /** Provides a way conveniently iterate over our tokens.
-     * @return An instance of the iterator over tokens.
-     */
-    @Override
-    public Iterator<Token> iterator() {
-        return tokens.iterator();
     }
 }

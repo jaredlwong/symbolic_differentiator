@@ -10,20 +10,12 @@ import differentiator.parse.Parser;
  */
 public class HalfCompiler {
 
-    /** The lexer instance. */
-    private final static Lexer lexer = Lexer.INSTANCE;
-
-    /** The parser instance. */
-    private final static Parser parser = Parser.INSTANCE;
-
     /**
      * Evaluate the input string.
      * @param input A string to be parsed.
      * @return The ExpressionElement representing the input
      */
     public static ExpressionElement evaluate(String input) {
-        lexer.setInput(input);
-        parser.setTokens(lexer.getTokens());
-        return parser.getParseTree();
+        return Parser.getParseTree(Lexer.getTokens(input));
     }
 }
