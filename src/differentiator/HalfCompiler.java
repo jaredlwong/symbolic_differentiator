@@ -23,7 +23,7 @@ public class HalfCompiler {
      */
     public static ExpressionElement evaluate(String input) {
         lexer.setInput(input);
-        parser.setLexer(lexer);
+        parser.setTokens(lexer.getTokens());
         return parser.getParseTree();
     }
 }

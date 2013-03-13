@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * The PolynomialTerm class represents a term of a polynomial. More explicitly
@@ -13,65 +15,48 @@ import java.util.Map.Entry;
  * And C is a non-negative integer.
  */
 public class PolynomialTerm {
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((coefficient == null) ? 0 : coefficient.hashCode());
-        result = prime * result
-                + ((variables == null) ? 0 : variables.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PolynomialTerm other = (PolynomialTerm) obj;
-        if (coefficient == null) {
-            if (other.coefficient != null)
-                return false;
-        } else if (!coefficient.equals(other.coefficient))
-            return false;
-        if (variables == null) {
-            if (other.variables != null)
-                return false;
-        } else if (!variables.equals(other.variables))
-            return false;
-        return true;
-    }
-
-    private BigDecimal coefficient;
-    private Map<String, Integer> variables;
+    private final BigDecimal coefficient;
+    private final SortedMap<String, Integer> variables;
 
     /**
      * This constructor takes a coefficient and a map of variables along with
-     * their powers.
+     * their powers. Behavior is only defined for proper number coefficients
+     * and variables with only letters from [a-zA-Z].
      * @param _coefficient
      * @param _variables
      */
     public <N extends Number> PolynomialTerm(
             N _coefficient, Map<String, Integer> _variables) {
         coefficient = BigDecimal.valueOf(_coefficient.doubleValue());
+        for (String key : _variables.keySet()) {
+            if (!key.matches("[a-zA-Z]+")) {
+                throw new IllegalArgumentException(
+                        "Variable was not only upper and lower case letters: "
+                + key);
+            }
+        }
         // create shallow copy, okay because Strings 
-        variables = new HashMap<String, Integer>(_variables);
+        variables = new TreeMap<String, Integer>(_variables);
     }
 
     /**
      * This constructor takes a coefficient and any number of variables.
+     * Behavior is only defined for proper number coefficients and variables
+     * with only letters from [a-zA-Z].
      * @param _coefficient
      * @param _variables
      */
     public <N extends Number> PolynomialTerm(
             N _coefficient, String ... _variables) {
         coefficient = BigDecimal.valueOf(_coefficient.doubleValue());
-        variables = new HashMap<String, Integer>();
+        for (String key : _variables) {
+            if (!key.matches("[a-zA-Z]+")) {
+                throw new IllegalArgumentException(
+                        "Variable was not only upper and lower case letters: "
+                + key);
+            }
+        }
+        variables = new TreeMap<String, Integer>();
         for (String _variable : _variables) {
             if (variables.containsKey(_variable)) {
                 variables.put(_variable, variables.get(_variable) + 1);
@@ -83,12 +68,21 @@ public class PolynomialTerm {
 
     /**
      * This constructor assumes that this term has a coefficient of 1.
+     * Behavior is only defined for proper number coefficients and variables
+     * with only letters from [a-zA-Z].
      * @param _coefficient
      * @param _variables
      */
     public <N extends Number> PolynomialTerm(String ... _variables) {
         coefficient = BigDecimal.valueOf(1);
-        variables = new HashMap<String, Integer>();
+        for (String key : _variables) {
+            if (!key.matches("[a-zA-Z]+")) {
+                throw new IllegalArgumentException(
+                        "Variable was not only upper and lower case letters: "
+                + key);
+            }
+        }
+        variables = new TreeMap<String, Integer>();
         for (String _variable : _variables) {
             if (variables.containsKey(_variable)) {
                 variables.put(_variable, variables.get(_variable) + 1);
@@ -137,10 +131,51 @@ public class PolynomialTerm {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((coefficient == null) ? 0 : coefficient.hashCode());
+        result = prime * result
+                + ((variables == null) ? 0 : variables.hashCode());
+        return result;
+    }
+
+    /**
+     * PolynomialTerms are equal if they have equal coefficients and equal
+     * variables with associated powers.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PolynomialTerm other = (PolynomialTerm) obj;
+        if (coefficient == null) {
+            if (other.coefficient != null)
+                return false;
+        } else if (!coefficient.equals(other.coefficient))
+            return false;
+        if (variables == null) {
+            if (other.variables != null)
+                return false;
+        } else if (!variables.equals(other.variables))
+            return false;
+        return true;
+    }
+
+
+    /**
+     * Returns the polynomial term with variables sorted lexographically
+     */
+    @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
         if (coefficient.compareTo(BigDecimal.valueOf(0)) == 0) {
-            return "";
+            return "0";
         }
         if (coefficient.compareTo(BigDecimal.valueOf(1)) != 0 ||
                 variables.size() == 0) {

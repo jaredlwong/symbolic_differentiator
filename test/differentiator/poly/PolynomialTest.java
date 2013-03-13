@@ -1,5 +1,7 @@
 package differentiator.poly;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +16,18 @@ public class PolynomialTest {
         // a = 10*a
         // b = 2*b
         // (10*a + 2*b)
-        List<PolynomialTerm> abSum = new ArrayList<PolynomialTerm>(4);
+        List<PolynomialTerm> abSum = new ArrayList<PolynomialTerm>(2);
         abSum.add(a);
         abSum.add(b);
         Polynomial abPoly = new Polynomial(abSum);
         Polynomial square = Polynomial.multiply(abPoly, abPoly);
-        System.out.println(square);
-        Polynomial simpl = Polynomial.simplify(square);
-        System.out.println(simpl);
-/*
-        // (10*a + 2*b) * (10*a + 2*b)
-        // (100*a*a + 20*a*b + 20*a*b + 4*b*b)
-        PolynomialTerm poly1 = new PolynomialTerm(100, "a");
-        PolynomialTerm poly23 = new PolynomialTerm(20, "a", "b");
-        PolynomialTerm poly4 = new PolynomialTerm(4, "b");
-        List<PolynomialTerm> expectedProductTerms = new ArrayList<PolynomialTerm>(4);
-        expectedProductTerms.add(poly1);
-        expectedProductTerms.add(poly23);
-        expectedProductTerms.add(poly23);
-        expectedProductTerms.add(poly4);
+        // 100*a^2+20*a*b+20*a*b+4*b^2
 
-        for (PolynomialTerm x : square.getTerms()) {
-            System.out.println(x);
-        }
+        PolynomialTerm r1 = new PolynomialTerm(100,"a","a");
+        PolynomialTerm r2 = new PolynomialTerm(20,"a","b");
+        PolynomialTerm r3 = new PolynomialTerm(4,"b","b");
+        Polynomial expected = new Polynomial(r1,r2,r3,r2);
 
-        System.out.println(square);
-        Polynomial simple = Polynomial.simplify(square);
-        System.out.println(simple);*/
+        assertEquals(square, expected);
     }
 }

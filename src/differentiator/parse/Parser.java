@@ -15,10 +15,10 @@ import differentiator.type.Type;
 public enum Parser {
     INSTANCE;
 
-    private Lexer lexer;
+    private Token[] tokens;
 
-    public void setLexer(Lexer _lexer) {
-        lexer = _lexer;
+    public void setTokens(Token ... _tokens) {
+        tokens = _tokens;
     }
 
     /**
@@ -29,7 +29,6 @@ public enum Parser {
      */
     public ExpressionElement getParseTree() {
         // Convert tokens to ase representation
-        Token tokens[] = lexer.getTokens();
         ExpressionElement elements[] =
                 new ExpressionElement[tokens.length];
         for (int i = 0; i < tokens.length; ++i) {
@@ -62,7 +61,8 @@ public enum Parser {
                         new ArrayList<ExpressionElement>(3);
                     ExpressionElement lastTerminalSeen = nextElement;
                     while (!stack.peek().isTerminal() ||
-                            stack.peekLastTerminal().compareTo(lastTerminalSeen) >= 0) {
+                            stack.peekLastTerminal()
+                                .compareTo(lastTerminalSeen) >= 0) {
                         ExpressionElement bb = stack.pop();
                         if (bb.isTerminal()) {
                             lastTerminalSeen = bb;
@@ -106,7 +106,8 @@ public enum Parser {
 
         if (expression.size() != 3) {
             throw new IllegalArgumentException(
-                    "Malformed input");
+                    "Malformed input, there is an expression that is not of" +
+                    " 1 or 3 tokens.");
         }
         assert (expression.size() == 3);
 
@@ -133,6 +134,7 @@ public enum Parser {
             return center;
         }
         throw new IllegalArgumentException(
-                "Malformed input");
+                "Malformed input, could not process expression." +
+                " Unknown expression.");
     }
 }

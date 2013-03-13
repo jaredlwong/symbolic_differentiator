@@ -20,7 +20,7 @@ public class ParserTest {
         String input = "((x*x)+(3+x))";
 
         lexer.setInput(input);
-        parser.setLexer(lexer);
+        parser.setTokens(lexer.getTokens());
         ExpressionElement parseTree = parser.getParseTree();
         String output = parseTree.interpret();
 
@@ -43,7 +43,7 @@ public class ParserTest {
         String input = "((x*x)+(3+x)*1.00011111*99*(x*x)*x*x*x)";
 
         lexer.setInput(input);
-        parser.setLexer(lexer);
+        parser.setTokens(lexer.getTokens());
         ExpressionElement parseTree = parser.getParseTree();
         String output = parseTree.interpret();
 
@@ -66,7 +66,7 @@ public class ParserTest {
         String input = "(x*x*x-x-x*x/x/x-100*x)";
 
         lexer.setInput(input);
-        parser.setLexer(lexer);
+        parser.setTokens(lexer.getTokens());
         ExpressionElement parseTree = parser.getParseTree();
         String output = parseTree.interpret();
 

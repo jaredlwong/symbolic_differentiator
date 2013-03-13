@@ -3,10 +3,12 @@ package differentiator.poly;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * The Class Polynomial defines a Polynomial.
@@ -16,15 +18,17 @@ public class Polynomial {
     /** The terms of the polynomial as represented by a List of
      * PolynomialTerms.
      */
-    private final List<PolynomialTerm> terms;
+    private final Set<PolynomialTerm> terms;
 
     /**
      * Instantiates a new polynomial from a single PolynomialTerm.
      * @param term The initial term of this polynomial.
      */
-    public Polynomial(PolynomialTerm term) {
-        terms = new ArrayList<PolynomialTerm>(1);
-        terms.add(term);
+    public Polynomial(PolynomialTerm ... _terms) {
+        terms = new HashSet<PolynomialTerm>(_terms.length);
+        for (PolynomialTerm pt : _terms) {
+            terms.add(pt);
+        }
     }
 
     /**
@@ -33,7 +37,7 @@ public class Polynomial {
      */
     public Polynomial(List<PolynomialTerm> terms) {
         // shallow copy okay b/c polynomial terms are immutable
-        this.terms = new ArrayList<PolynomialTerm>(terms);
+        this.terms = new HashSet<PolynomialTerm>(terms);
     }
 
     /**
@@ -129,7 +133,39 @@ public class Polynomial {
         if (res.charAt(res.length()-1) == '+') {
             res.deleteCharAt(res.length()-1);
         }
-        String noSpaced = res.toString();
-        return noSpaced.replaceAll("\\+"," + ");
+        return res.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((terms == null) ? 0 : terms.hashCode());
+        return result;
+    }
+
+    /**
+     * Two polynomials are equal if they each have equivalent PolynomialTerms
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Polynomial other = (Polynomial) obj;
+        if (terms == null) {
+            if (other.terms != null) {
+                return false;
+            }
+        } else if (!terms.equals(other.terms)) {
+            return false;
+        }
+        return true;
     }
 }
