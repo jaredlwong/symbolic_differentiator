@@ -6,18 +6,16 @@ import differentiator.DifferentiationVisitor;
 import differentiator.ast.ExpressionElement;
 import differentiator.parse.Lexer;
 import differentiator.parse.Parser;
+import differentiator.parse.Token;
 
 public class GeneratePolynomialVisitorTest {
-    private static final Lexer lexer = Lexer.INSTANCE;
-    private static final Parser parser = Parser.INSTANCE;
 
     @Test
     public void basicTest() {
         String expression = "((x+1)*(y+x))";
-        lexer.setInput(expression);
+        Token[] tokens = Lexer.getTokens(expression);
 
-        parser.setTokens(lexer.getTokens());
-        ExpressionElement input = parser.getParseTree();
+        ExpressionElement input = Parser.getParseTree(tokens);
 
         DifferentiationVisitor derivativeVisitor =
                 new DifferentiationVisitor("x");

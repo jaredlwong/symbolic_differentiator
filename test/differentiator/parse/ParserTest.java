@@ -10,18 +10,15 @@ import org.junit.Test;
 import differentiator.ast.ExpressionElement;
 
 public class ParserTest {
-    private static final Parser parser = Parser.INSTANCE;
-    private static final Lexer lexer = Lexer.INSTANCE;
 
     @Test
-    public void basicTest() {
+    public void basicIntegratedTest() {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         String input = "((x*x)+(3+x))";
 
-        lexer.setInput(input);
-        parser.setTokens(lexer.getTokens());
-        ExpressionElement parseTree = parser.getParseTree();
+        Token[] tokens = Lexer.getTokens(input);
+        ExpressionElement parseTree = Parser.getParseTree(tokens);
         String output = parseTree.interpret();
 
         for (int i = 0; i < 100; ++i) {
@@ -37,14 +34,13 @@ public class ParserTest {
     }
 
     @Test
-    public void complexTest() {
+    public void complexIntegratedTest() {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         String input = "((x*x)+(3+x)*1.00011111*99*(x*x)*x*x*x)";
 
-        lexer.setInput(input);
-        parser.setTokens(lexer.getTokens());
-        ExpressionElement parseTree = parser.getParseTree();
+        Token[] tokens = Lexer.getTokens(input);
+        ExpressionElement parseTree = Parser.getParseTree(tokens);
         String output = parseTree.interpret();
 
         for (int i = -100; i < 100; ++i) {
@@ -60,14 +56,13 @@ public class ParserTest {
     }
 
     @Test
-    public void extraCharacterTest() {
+    public void extraCharacterIntegratedTest() {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         String input = "(x*x*x-x-x*x/x/x-100*x)";
 
-        lexer.setInput(input);
-        parser.setTokens(lexer.getTokens());
-        ExpressionElement parseTree = parser.getParseTree();
+        Token[] tokens = Lexer.getTokens(input);
+        ExpressionElement parseTree = Parser.getParseTree(tokens);
         String output = parseTree.interpret();
 
         for (int i = -100; i < 100; ++i) {
