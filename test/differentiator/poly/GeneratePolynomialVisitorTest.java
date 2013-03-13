@@ -16,7 +16,7 @@ public class GeneratePolynomialVisitorTest {
         String expression = "((x+1)*(y+x))";
         lexer.setInput(expression);
 
-        parser.setLexer(lexer);
+        parser.setTokens(lexer.getTokens());
         ExpressionElement input = parser.getParseTree();
 
         DifferentiationVisitor derivativeVisitor =
