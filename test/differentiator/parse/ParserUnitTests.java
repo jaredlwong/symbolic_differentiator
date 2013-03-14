@@ -11,8 +11,6 @@ import differentiator.ast.ExpressionElement;
  * 2. identifier
  * 3. mixed
  * 4. mixed backwards
- * @author jaredlwong
- *
  */
 public class ParserUnitTests {
     private static Token[] generateTokens(String ... tokenStrings) {
