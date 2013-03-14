@@ -17,6 +17,8 @@ import differentiator.parse.Token;
 /**
  * The Class DifferentiationVisitor defines a visitor for an abstract syntax
  * tree. It will take the derivative of the input on which it is called.
+ * <br>
+ * This uses a buffer in order to non-recursively handle long expressions.
  */
 public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void> {
 
@@ -54,7 +56,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
     /**
      * This defines differentiation of a number. It is always 0.
      */
-    @Override
     public Void visit(NumberExpression expression) {
         buffer.push(new NumberExpression(Token.getInstance("0")));
         return null;
@@ -64,7 +65,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * This method defines differentiation of a variable. If it equals the
      * variable we are differentiating on it is 1, otherwise 0.
      */
-    @Override
     public Void visit(IdentifierExpression expression) {
         if (expression.getValue().equals(variable)) {
             buffer.push(new NumberExpression(Token.getInstance("1")));
@@ -79,7 +79,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * transformation:
      * A + B -> dA/dx + DB/dx
      */
-    @Override
     public Void visit(SumExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
@@ -94,7 +93,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * the transformation:
      * A * B -> dA/dx*B + dB/dx * A
      */
-    @Override
     public Void visit(ProductExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
@@ -118,7 +116,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * the transformation:
      * A * B -> dA/dx*B + dB/dx * A 
      */
-    @Override
     public Void visit(DifferenceExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
@@ -139,7 +136,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * transformation:
      * A / B -> (dA/dx*B - dB/dx * A)/(B * B)
      */
-    @Override
     public Void visit(QuotientExpression expression) {
         expression.getLeft().accept(this);
         expression.getRight().accept(this);
@@ -176,7 +172,6 @@ public class DifferentiationVisitor implements ExpressionEvaluationVisitor<Void>
      * NOTE: It does not differentiate properly unless A === variable that
      * this DifferentiationVisitor is taking the derivative of.
      */
-    @Override
     public Void visit(ExponentialExpression expression) {
         ExpressionElement power =
                 ExpressionElementFactory.difference(

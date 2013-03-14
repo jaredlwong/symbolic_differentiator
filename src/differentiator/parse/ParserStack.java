@@ -22,7 +22,7 @@ public class ParserStack {
             new Stack<ExpressionElement>();
 
     /**
-     * Reset.
+     * Reset this stack by clearing all elements from this stack.
      */
     public void reset() {
         stack.clear();
@@ -30,8 +30,7 @@ public class ParserStack {
     }
 
     /**
-     * Push.
-     *
+     * Push and element onto the top of this stack.
      * @param e the e
      */
     public void push(ExpressionElement e) {
@@ -42,9 +41,9 @@ public class ParserStack {
     }
 
     /**
-     * Pop.
-     *
-     * @return the expression element
+     * Get the element at the top of this stack.
+     * @return the expression element at the top fo the stack
+     * @throws EmptyStackException if the stack is empty
      */
     public ExpressionElement pop() {
         ExpressionElement next = stack.pop();
@@ -55,26 +54,24 @@ public class ParserStack {
     }
 
     /**
-     * Peek last terminal.
-     *
-     * @return the expression element
+     * Looks at the last terminal expression element in this stack without
+     * removing it.
+     * @return The last terminal expression element in this stack without
+     * removing it.
      */
     public ExpressionElement peekLastTerminal() {
         return terminalStack.peek();
     }
     
     /**
-     * Peek.
-     *
-     * @return the expression element
+     * Looks at the object at the top of this stack without removing it from
+     * this stack.
+     * @return the object at the top of this stack
      */
     public ExpressionElement peek() {
         return stack.peek();
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Enum#toString()
-     */
     @Override
     public String toString() {
         return stack.toString();

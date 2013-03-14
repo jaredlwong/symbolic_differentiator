@@ -21,8 +21,12 @@ public class Polynomial {
     /**
      * Instantiates a new polynomial from a single PolynomialTerm.
      * @param term The initial term of this polynomial.
+     * @throws NullPointerException if the specified terms are null
      */
     public Polynomial(PolynomialTerm ... _terms) {
+        if (_terms == null) {
+            throw new NullPointerException("The terms were null.");
+        }
         terms = new ArrayList<PolynomialTerm>(_terms.length);
         for (PolynomialTerm pt : _terms) {
             terms.add(pt);
@@ -32,10 +36,14 @@ public class Polynomial {
     /**
      * Instantiates a new polynomial from a list of PolynomialTerms.
      * @param terms The initial terms of this polynomial.
+     * @throws NullPointerException if the specified terms were null
      */
-    public Polynomial(List<PolynomialTerm> terms) {
+    public Polynomial(List<PolynomialTerm> _terms) {
+        if (_terms == null) {
+            throw new NullPointerException("The terms were null.");
+        }
         // shallow copy okay b/c polynomial terms are immutable
-        this.terms = new ArrayList<PolynomialTerm>(terms);
+        terms = new ArrayList<PolynomialTerm>(_terms);
     }
 
     /**
@@ -115,6 +123,10 @@ public class Polynomial {
         return new Polynomial(product);
     }
 
+    /**
+     * Print out an appropriate string representation of this polynomial.
+     */
+    @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
         Iterator<PolynomialTerm> polyTermIter = terms.iterator();
@@ -136,16 +148,43 @@ public class Polynomial {
         return res.toString();
     }
 
+    /**
+     * This method converts terms to a map. This should be used explicitly for
+     * equals, hashCode, and any similar methods.
+     * @return A Map of the terms in this polynomial
+     */
+    private Map<PolynomialTerm, Integer> getTermsMap() {
+        Map<PolynomialTerm, Integer> termsMap =
+                new HashMap<PolynomialTerm, Integer>();
+        for (PolynomialTerm term : terms) {
+            if (termsMap.containsKey(term)) {
+                termsMap.put(term, termsMap.get(term) + 1);
+            } else {
+                termsMap.put(term, 1);
+            }
+        }
+        return termsMap;
+    }
+
+    /**
+     * Two polynomials have the same hash code if they have the same polynomial
+     * terms. This does not mean that a polynomial is necessarily equal to its
+     * simplified polynomial.
+     */
     @Override
     public int hashCode() {
+        Map<PolynomialTerm, Integer> termsMap = this.getTermsMap();
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((terms == null) ? 0 : terms.hashCode());
+        result = prime * result + ((termsMap == null) ?
+                0 : termsMap.hashCode());
         return result;
     }
 
     /**
-     * Two polynomials are equal if they each have equivalent PolynomialTerms
+     * Two polynomials are equal if they have the same polynomial terms. This
+     * does not mean that a polynomial is necessarily equal to its simplified
+     * polynomial.
      */
     @Override
     public boolean equals(Object obj) {
@@ -159,11 +198,13 @@ public class Polynomial {
             return false;
         }
         Polynomial other = (Polynomial) obj;
-        if (terms == null) {
-            if (other.terms != null) {
+        Map<PolynomialTerm, Integer> termsMap = this.getTermsMap();
+        Map<PolynomialTerm, Integer> otherTermsMap = other.getTermsMap();
+        if (termsMap == null) {
+            if (otherTermsMap != null) {
                 return false;
             }
-        } else if (!terms.equals(other.terms)) {
+        } else if (!termsMap.equals(otherTermsMap)) {
             return false;
         }
         return true;

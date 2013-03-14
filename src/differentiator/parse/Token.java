@@ -82,8 +82,12 @@ public class Token {
      * starting terminal paren or closing terminal paren.
      * @param token The token that needs to be represented
      * @return An instance of Token that represents token
+     * @throws NullPointerException if the token is null
      */
     public static Token getInstance(String token) {
+        if (token == null) {
+            throw new NullPointerException("The token was null");
+        }
         Type type = getType(token);
         if (SINGLETON_MAP.containsKey(type)) {
             return SINGLETON_MAP.get(type);
@@ -91,11 +95,12 @@ public class Token {
         return new Token(type, token);
     }
 
-    /** Get Type of a token. This will not return a starting or closing
+    /**
+     * Get Type of a token. This will not return a starting or closing
      * terminal paren. This is for private use only.
      * @param token The token that is being parsed
-     * @return The Type of the token, an InvalidTokenException is thrown if
-     *          token not recognized.
+     * @return The Type of the token
+     * @throws IllegalArgumentException if the token is not recognized
      */
     private static Type getType(String token) {
         for (Entry<Type, String> pattern : REGEX_PATTERNS.entrySet()) {
@@ -129,6 +134,9 @@ public class Token {
         return "Token [type=" + type + ", value=" + value + "]";
     }
 
+    /**
+     * Two tokens have the same hash code if they have the same type and value.
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -138,6 +146,9 @@ public class Token {
         return result;
     }
 
+    /**
+     * Two tokens are equal if they have the same type and value.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

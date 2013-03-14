@@ -27,8 +27,14 @@ public class Parser {
      * other token must be in a proper mathematical expression.
      * @return a parse tree representing the expression enumrated by the
      * tokens.
+     * @throws NullPointerException if the specified tokens are null
+     * @throws IllegalArgumentException if the expression specified by the
+     * tokens is illegal (see grammar for legal expression)
      */
     public static ExpressionElement getParseTree(Token ... tokens) {
+        if (tokens == null) {
+            throw new NullPointerException("Tokens are null");
+        }
         // Convert tokens to ase representation
         ExpressionElement elements[] =
                 new ExpressionElement[tokens.length];
@@ -90,8 +96,10 @@ public class Parser {
      * This method takes an expression in the form of a list of
      * ExpressionElements and returns another ExpressionElement that
      * represents that expression.
-     * @param expression
-     * @return
+     * @param expression to parse and simplify
+     * @return a simplified expression equivalent to the expression passed
+     * @throws IllegalArgumentException if the expression is not properly
+     * formed (see grammar for legal expressions)
      */
     private static ExpressionElement
             processExpression(List<ExpressionElement> expression) {

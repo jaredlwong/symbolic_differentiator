@@ -20,8 +20,13 @@ public class Lexer {
      * <br>
      * Note: this returns an array because the input should be fully processed
      * by this step of our parser/compiler.
-     * @return The array of tokens for the current input */
+     * @return The array of tokens for the current input
+     * @throws NullPointerException if the specified input is null
+     * */
     public static Token[] getTokens(String input) {
+        if (input == null) {
+            throw new NullPointerException("input was null");
+        }
         Tokenizer tokenizer = new Tokenizer(input);
         List<Token> tokens = getTokensFromTokenizer(tokenizer);
         return tokens.toArray(new Token[tokens.size()]);

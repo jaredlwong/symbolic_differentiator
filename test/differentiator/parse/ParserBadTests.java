@@ -108,4 +108,33 @@ public class ParserBadTests {
                 Token.getInstance("$")};
         Parser.getParseTree(tokens);
     }
+    
+    @Test(expected = RuntimeException.class)
+    public void noOperatorNumbersTest() {
+        Token[] tokens = {
+                Token.getInstance("$"),
+                Token.getInstance("1"),
+                Token.getInstance("1"),
+                Token.getInstance("$")};
+        Parser.getParseTree(tokens);
+    }
+    @Test(expected = RuntimeException.class)
+    public void noOperatorVariablesTest() {
+        Token[] tokens = {
+                Token.getInstance("$"),
+                Token.getInstance("a"),
+                Token.getInstance("b"),
+                Token.getInstance("$")};
+        Parser.getParseTree(tokens);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void noOperatorMixTest() {
+        Token[] tokens = {
+                Token.getInstance("$"),
+                Token.getInstance("a"),
+                Token.getInstance("1"),
+                Token.getInstance("$")};
+        Parser.getParseTree(tokens);
+    }
 }

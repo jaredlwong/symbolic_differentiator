@@ -13,7 +13,8 @@ import java.util.NoSuchElementException;
  */
 public class Tokenizer implements Iterator<String> {
 
-    /** This enum is used to help the tokenizer tell when to continue parsing
+    /**
+     * This enum is used to help the tokenizer tell when to continue parsing
      * the next character from the input. It does not determine what Token the
      * character should be, that is left to the Token class.
      */
@@ -25,11 +26,23 @@ public class Tokenizer implements Iterator<String> {
 
         private final String regex;
 
+        /**
+         * private constructor for CharType enums
+         * @param regex The regex to match the enum with
+         */
         private CharType(String regex) {
             this.regex = regex;
         }
 
-        public static CharType getCharType(char c) throws IllegalArgumentException {
+        /**
+         * 
+         * @param c The character to parse
+         * @return the CharType associated with the character
+         * @throws IllegalArgumentException if the specified character is not
+         * in the grammar (see grammar for legal input characters)
+         */
+        public static CharType getCharType(char c)
+                throws IllegalArgumentException {
             String cstr = Character.toString(c);
             for (CharType type : CharType.values()) {
                 if (cstr.matches(type.regex)) {
@@ -47,8 +60,12 @@ public class Tokenizer implements Iterator<String> {
     /** 
      * Generate the tokens given a new input string.
      * @param input The String to be tokenized.
+     * @throws NullPointerException if the specified input is null
      */
     public Tokenizer(String _input) {
+        if (_input == null) {
+            throw new NullPointerException("input was null");
+        }
         input = _input;
         position = 0;
         // Increase position to first token that isn't whitespace.
