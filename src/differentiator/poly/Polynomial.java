@@ -3,12 +3,10 @@ package differentiator.poly;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * The Class Polynomial defines a Polynomial.
@@ -18,14 +16,14 @@ public class Polynomial {
     /** The terms of the polynomial as represented by a List of
      * PolynomialTerms.
      */
-    private final Set<PolynomialTerm> terms;
+    private final List<PolynomialTerm> terms;
 
     /**
      * Instantiates a new polynomial from a single PolynomialTerm.
      * @param term The initial term of this polynomial.
      */
     public Polynomial(PolynomialTerm ... _terms) {
-        terms = new HashSet<PolynomialTerm>(_terms.length);
+        terms = new ArrayList<PolynomialTerm>(_terms.length);
         for (PolynomialTerm pt : _terms) {
             terms.add(pt);
         }
@@ -37,7 +35,7 @@ public class Polynomial {
      */
     public Polynomial(List<PolynomialTerm> terms) {
         // shallow copy okay b/c polynomial terms are immutable
-        this.terms = new HashSet<PolynomialTerm>(terms);
+        this.terms = new ArrayList<PolynomialTerm>(terms);
     }
 
     /**
@@ -71,8 +69,10 @@ public class Polynomial {
                 new ArrayList<PolynomialTerm>(newTerms.size());
         for (Entry<Map<String, Integer>, BigDecimal> term :
                 newTerms.entrySet()) {
-            newTermList.add(
+            if (term.getValue().compareTo(BigDecimal.valueOf(0)) != 0) {
+                newTermList.add(
                     new PolynomialTerm(term.getValue(), term.getKey()));
+            }
         }
         return new Polynomial(newTermList);
     }
